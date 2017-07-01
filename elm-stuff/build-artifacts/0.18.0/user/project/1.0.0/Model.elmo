@@ -1,0 +1,131 @@
+var _user$project$Model$tokenDecoder = A2(_elm_lang$core$Json_Decode$field, 'Token', _elm_lang$core$Json_Decode$string);
+var _user$project$Model$model = {
+	mdl: _debois$elm_mdl$Material$model,
+	data: {ctor: '[]'},
+	bodyLocations: {ctor: '[]'},
+	bodySubLocations: {ctor: '[]'},
+	symptoms: {ctor: '[]'},
+	selectedSymptoms: {ctor: '[]'},
+	diagnosis: {ctor: '[]'},
+	token: '',
+	errorMsg: '',
+	action: '',
+	selectedTab: 0
+};
+var _user$project$Model$Model = function (a) {
+	return function (b) {
+		return function (c) {
+			return function (d) {
+				return function (e) {
+					return function (f) {
+						return function (g) {
+							return function (h) {
+								return function (i) {
+									return function (j) {
+										return function (k) {
+											return {mdl: a, data: b, bodyLocations: c, bodySubLocations: d, symptoms: e, selectedSymptoms: f, diagnosis: g, token: h, errorMsg: i, action: j, selectedTab: k};
+										};
+									};
+								};
+							};
+						};
+					};
+				};
+			};
+		};
+	};
+};
+var _user$project$Model$init = {
+	ctor: '_Tuple2',
+	_0: _user$project$Model$Model(_debois$elm_mdl$Material$model)(
+		{ctor: '[]'})(
+		{ctor: '[]'})(
+		{ctor: '[]'})(
+		{ctor: '[]'})(
+		{ctor: '[]'})(
+		{ctor: '[]'})('')('')('')(0),
+	_1: _elm_lang$core$Platform_Cmd$none
+};
+var _user$project$Model$Data = F2(
+	function (a, b) {
+		return {id: a, name: b};
+	});
+var _user$project$Model$searchResultDecoder = A3(
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+	'Name',
+	_elm_lang$core$Json_Decode$string,
+	A3(
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+		'ID',
+		_elm_lang$core$Json_Decode$int,
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Model$Data)));
+var _user$project$Model$responseDecoder = A2(
+	_elm_lang$core$Json_Decode$at,
+	{ctor: '[]'},
+	_elm_lang$core$Json_Decode$list(_user$project$Model$searchResultDecoder));
+var _user$project$Model$DiagnosisData = F3(
+	function (a, b, c) {
+		return {id: a, name: b, accuracy: c};
+	});
+var _user$project$Model$diagnosisDataDecoder = A3(
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+	'Accuracy',
+	_elm_lang$core$Json_Decode$float,
+	A3(
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+		'Name',
+		_elm_lang$core$Json_Decode$string,
+		A3(
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+			'ID',
+			_elm_lang$core$Json_Decode$int,
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Model$DiagnosisData))));
+var _user$project$Model$General = function (a) {
+	return {issue: a};
+};
+var _user$project$Model$diagnosisGeneralDecoder = A3(
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+	'Issue',
+	_user$project$Model$diagnosisDataDecoder,
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Model$General));
+var _user$project$Model$diagnosisDecoder = A2(
+	_elm_lang$core$Json_Decode$at,
+	{ctor: '[]'},
+	_elm_lang$core$Json_Decode$list(_user$project$Model$diagnosisGeneralDecoder));
+var _user$project$Model$Mdl = function (a) {
+	return {ctor: 'Mdl', _0: a};
+};
+var _user$project$Model$Seleccionar = F2(
+	function (a, b) {
+		return {ctor: 'Seleccionar', _0: a, _1: b};
+	});
+var _user$project$Model$SelectTab = function (a) {
+	return {ctor: 'SelectTab', _0: a};
+};
+var _user$project$Model$Diagnosis = function (a) {
+	return {ctor: 'Diagnosis', _0: a};
+};
+var _user$project$Model$ComputeDiagnosis = {ctor: 'ComputeDiagnosis'};
+var _user$project$Model$SelectSymptom = function (a) {
+	return {ctor: 'SelectSymptom', _0: a};
+};
+var _user$project$Model$Symptoms = function (a) {
+	return {ctor: 'Symptoms', _0: a};
+};
+var _user$project$Model$LoadSymptoms = function (a) {
+	return {ctor: 'LoadSymptoms', _0: a};
+};
+var _user$project$Model$SubBodyLocations = function (a) {
+	return {ctor: 'SubBodyLocations', _0: a};
+};
+var _user$project$Model$LoadSubBodyLocations = function (a) {
+	return {ctor: 'LoadSubBodyLocations', _0: a};
+};
+var _user$project$Model$BodyLocations = function (a) {
+	return {ctor: 'BodyLocations', _0: a};
+};
+var _user$project$Model$LoadBodyLocations = {ctor: 'LoadBodyLocations'};
+var _user$project$Model$Token = function (a) {
+	return {ctor: 'Token', _0: a};
+};
+var _user$project$Model$GetToken = {ctor: 'GetToken'};

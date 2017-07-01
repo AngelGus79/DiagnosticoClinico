@@ -1,0 +1,588 @@
+var _user$project$View$viewDiagnosis = function (result) {
+	return A2(
+		_elm_lang$html$Html$li,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					'Probable padecimiento: ',
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						result.issue.name,
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							', con presición del: ',
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								_elm_lang$core$Basics$toString(result.issue.accuracy),
+								'%'))))),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$View$viewSubpartes = function (result) {
+	return A2(
+		_elm_lang$html$Html$li,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$a,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$href('#'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Events$onClick(
+									_user$project$Model$LoadSymptoms(result.id)),
+								_1: {ctor: '[]'}
+							}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(result.name),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$View$viewSearchResult = function (result) {
+	return A2(
+		_elm_lang$html$Html$li,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$a,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$href('#'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Events$onClick(
+									_user$project$Model$LoadSubBodyLocations(result.id)),
+								_1: {ctor: '[]'}
+							}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(result.name),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$View$viewPartesSel = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$h4,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('Partes del cuerpo'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_debois$elm_mdl$Material_List$ul,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: A2(
+							_debois$elm_mdl$Material_List$li,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: A2(
+									_debois$elm_mdl$Material_List$content,
+									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('parte1'),
+										_1: {ctor: '[]'}
+									}),
+								_1: {ctor: '[]'}
+							}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_debois$elm_mdl$Material_List$li,
+								{ctor: '[]'},
+								{
+									ctor: '::',
+									_0: A2(
+										_debois$elm_mdl$Material_List$content,
+										{ctor: '[]'},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('parte2'),
+											_1: {ctor: '[]'}
+										}),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$h4,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('Síntomas'),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_debois$elm_mdl$Material_List$ul,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: A2(
+									_debois$elm_mdl$Material_List$li,
+									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: A2(
+											_debois$elm_mdl$Material_List$content,
+											{ctor: '[]'},
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text('Sintoma1'),
+												_1: {ctor: '[]'}
+											}),
+										_1: {ctor: '[]'}
+									}),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_debois$elm_mdl$Material_List$li,
+										{ctor: '[]'},
+										{
+											ctor: '::',
+											_0: A2(
+												_debois$elm_mdl$Material_List$content,
+												{ctor: '[]'},
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html$text('Sintoma2'),
+													_1: {ctor: '[]'}
+												}),
+											_1: {ctor: '[]'}
+										}),
+									_1: {ctor: '[]'}
+								}
+							}),
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		});
+};
+var _user$project$View$toButton4 = F2(
+	function (cadena, sel) {
+		return A5(
+			_debois$elm_mdl$Material_Toggles$checkbox,
+			_user$project$Model$Mdl,
+			{
+				ctor: '::',
+				_0: 0,
+				_1: {ctor: '[]'}
+			},
+			_user$project$Model$model.mdl,
+			{
+				ctor: '::',
+				_0: _debois$elm_mdl$Material_Options$onToggle(
+					A2(_user$project$Model$Seleccionar, cadena, 4)),
+				_1: {
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Toggles$ripple,
+					_1: {
+						ctor: '::',
+						_0: _debois$elm_mdl$Material_Toggles$value(sel),
+						_1: {ctor: '[]'}
+					}
+				}
+			},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(cadena),
+				_1: {ctor: '[]'}
+			});
+	});
+var _user$project$View$toButton3 = function (cadena) {
+	return A5(
+		_debois$elm_mdl$Material_Button$render,
+		_user$project$Model$Mdl,
+		{
+			ctor: '::',
+			_0: 0,
+			_1: {ctor: '[]'}
+		},
+		_user$project$Model$model.mdl,
+		{
+			ctor: '::',
+			_0: _debois$elm_mdl$Material_Options$onClick(
+				A2(_user$project$Model$Seleccionar, cadena, 3)),
+			_1: {
+				ctor: '::',
+				_0: A2(_debois$elm_mdl$Material_Options$css, 'margin', '0 24px'),
+				_1: {ctor: '[]'}
+			}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(cadena),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$View$toButton2 = function (cadena) {
+	return A5(
+		_debois$elm_mdl$Material_Button$render,
+		_user$project$Model$Mdl,
+		{
+			ctor: '::',
+			_0: 0,
+			_1: {ctor: '[]'}
+		},
+		_user$project$Model$model.mdl,
+		{
+			ctor: '::',
+			_0: _debois$elm_mdl$Material_Options$onClick(
+				_user$project$Model$LoadSymptoms(48)),
+			_1: {
+				ctor: '::',
+				_0: A2(_debois$elm_mdl$Material_Options$css, 'margin', '0 24px'),
+				_1: {ctor: '[]'}
+			}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(cadena),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$View$toButton1 = function (cadena) {
+	return A5(
+		_debois$elm_mdl$Material_Button$render,
+		_user$project$Model$Mdl,
+		{
+			ctor: '::',
+			_0: 0,
+			_1: {ctor: '[]'}
+		},
+		_user$project$Model$model.mdl,
+		{
+			ctor: '::',
+			_0: _debois$elm_mdl$Material_Options$onClick(
+				_user$project$Model$LoadSubBodyLocations(7)),
+			_1: {
+				ctor: '::',
+				_0: A2(_debois$elm_mdl$Material_Options$css, 'margin', '0 24px'),
+				_1: {ctor: '[]'}
+			}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(cadena),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$View$check = F2(
+	function (partes, selec) {
+		return A3(_elm_lang$core$List$map2, _user$project$View$toButton4, partes, selec);
+	});
+var _user$project$View$button = F2(
+	function (partes, tab) {
+		var _p0 = tab;
+		switch (_p0) {
+			case 1:
+				return A2(_elm_lang$core$List$map, _user$project$View$toButton1, partes);
+			case 2:
+				return A2(_elm_lang$core$List$map, _user$project$View$toButton2, partes);
+			case 3:
+				return A2(_elm_lang$core$List$map, _user$project$View$toButton3, partes);
+			default:
+				return A2(_elm_lang$core$List$map, _user$project$View$toButton1, partes);
+		}
+	});
+var _user$project$View$viewSintomas2 = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$style(
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'padding', _1: '2rem'},
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		},
+		A2(
+			_user$project$View$check,
+			{
+				ctor: '::',
+				_0: 'Sintoma P1',
+				_1: {
+					ctor: '::',
+					_0: 'Sintoma P2',
+					_1: {
+						ctor: '::',
+						_0: 'Sintoma P3',
+						_1: {ctor: '[]'}
+					}
+				}
+			},
+			{
+				ctor: '::',
+				_0: false,
+				_1: {
+					ctor: '::',
+					_0: false,
+					_1: {
+						ctor: '::',
+						_0: false,
+						_1: {ctor: '[]'}
+					}
+				}
+			}));
+};
+var _user$project$View$viewSymptoms = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$style(
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'padding', _1: '2rem'},
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		},
+		A2(
+			_user$project$View$button,
+			A2(
+				_elm_lang$core$List$map,
+				function (x) {
+					return x.name;
+				},
+				model.symptoms),
+			3));
+};
+var _user$project$View$viewBodySubLocations = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$style(
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'padding', _1: '2rem'},
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		},
+		A2(
+			_user$project$View$button,
+			A2(
+				_elm_lang$core$List$map,
+				function (x) {
+					return x.name;
+				},
+				model.bodySubLocations),
+			2));
+};
+var _user$project$View$viewBodyLocations = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$style(
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'padding', _1: '2rem'},
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		},
+		A2(
+			_user$project$View$button,
+			A2(
+				_elm_lang$core$List$map,
+				function (x) {
+					return x.name;
+				},
+				model.bodyLocations),
+			1));
+};
+var _user$project$View$viewBody = function (model) {
+	var _p1 = model.selectedTab;
+	switch (_p1) {
+		case 0:
+			return _user$project$View$viewBodyLocations(model);
+		case 1:
+			return _user$project$View$viewBodySubLocations(model);
+		case 2:
+			return _user$project$View$viewSymptoms(model);
+		case 3:
+			return _user$project$View$viewSintomas2(model);
+		case 4:
+			return _elm_lang$html$Html$text('Aqui va el resultado');
+		default:
+			return _elm_lang$html$Html$text('404');
+	}
+};
+var _user$project$View$view = function (model) {
+	return A3(
+		_debois$elm_mdl$Material_Scheme$topWithScheme,
+		_debois$elm_mdl$Material_Color$Teal,
+		_debois$elm_mdl$Material_Color$DeepOrange,
+		A4(
+			_debois$elm_mdl$Material_Layout$render,
+			_user$project$Model$Mdl,
+			model.mdl,
+			{
+				ctor: '::',
+				_0: _debois$elm_mdl$Material_Layout$fixedDrawer,
+				_1: {
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Layout$fixedHeader,
+					_1: {
+						ctor: '::',
+						_0: _debois$elm_mdl$Material_Layout$onSelectTab(_user$project$Model$SelectTab),
+						_1: {
+							ctor: '::',
+							_0: _debois$elm_mdl$Material_Layout$selectedTab(model.selectedTab),
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			},
+			{
+				header: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$h1,
+								{ctor: '[]'},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text('Programa médico'),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				},
+				drawer: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$img,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$src('https://getmdl.io/templates/dashboard/images/user.jpg'),
+									_1: {ctor: '[]'}
+								},
+								{ctor: '[]'}),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$div,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: _user$project$View$viewPartesSel(model),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}
+				},
+				tabs: {
+					ctor: '_Tuple2',
+					_0: {
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('Parte general del cuerpo'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('Parte específica del cuerpo'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html$text('Síntoma'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html$text('Síntomas propuestos'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('Sugerencia'),
+										_1: {ctor: '[]'}
+									}
+								}
+							}
+						}
+					},
+					_1: {ctor: '[]'}
+				},
+				main: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$button,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Events$onClick(_user$project$Model$LoadBodyLocations),
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text('iniciar'),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: _user$project$View$viewBody(model),
+						_1: {ctor: '[]'}
+					}
+				}
+			}));
+};

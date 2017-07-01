@@ -1,0 +1,370 @@
+var _user$project$Main$creaUrl = F2(
+	function (model, action) {
+		var url = _user$project$Auth$priaid_healthservice_url;
+		return (!A2(_elm_lang$core$String$contains, '?', action)) ? A2(
+			_elm_lang$core$Basics_ops['++'],
+			url,
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				'/',
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					action,
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						'?token=',
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							model.token,
+							A2(_elm_lang$core$Basics_ops['++'], '&format=json&language=', _user$project$Auth$language)))))) : A2(
+			_elm_lang$core$Basics_ops['++'],
+			url,
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				'/',
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					action,
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						'&token=',
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							model.token,
+							A2(_elm_lang$core$Basics_ops['++'], '&format=json&language=', _user$project$Auth$language))))));
+	});
+var _user$project$Main$getDiagnosisData = function (url) {
+	return _elm_lang$http$Http$request(
+		{
+			method: 'GET',
+			headers: {ctor: '[]'},
+			url: url,
+			body: _elm_lang$http$Http$emptyBody,
+			expect: _elm_lang$http$Http$expectJson(_user$project$Model$diagnosisDecoder),
+			timeout: _elm_lang$core$Maybe$Nothing,
+			withCredentials: false
+		});
+};
+var _user$project$Main$getData = function (url) {
+	return _elm_lang$http$Http$request(
+		{
+			method: 'GET',
+			headers: {ctor: '[]'},
+			url: url,
+			body: _elm_lang$http$Http$emptyBody,
+			expect: _elm_lang$http$Http$expectJson(_user$project$Model$responseDecoder),
+			timeout: _elm_lang$core$Maybe$Nothing,
+			withCredentials: false
+		});
+};
+var _user$project$Main$getProtectedQuote = function (model) {
+	return _elm_lang$http$Http$request(
+		{
+			method: 'POST',
+			headers: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$http$Http$header,
+					'Authorization',
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						'Bearer ',
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							_user$project$Auth$username,
+							A2(_elm_lang$core$Basics_ops['++'], ':', _user$project$Auth$password)))),
+				_1: {ctor: '[]'}
+			},
+			url: _user$project$Auth$priaid_authservice_url,
+			body: _elm_lang$http$Http$emptyBody,
+			expect: _elm_lang$http$Http$expectJson(_user$project$Model$tokenDecoder),
+			timeout: _elm_lang$core$Maybe$Nothing,
+			withCredentials: false
+		});
+};
+var _user$project$Main$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'GetToken':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							selectedSymptoms: {ctor: '[]'}
+						}),
+					_1: A2(
+						_elm_lang$http$Http$send,
+						_user$project$Model$Token,
+						_user$project$Main$getProtectedQuote(model))
+				};
+			case 'Token':
+				if (_p0._0.ctor === 'Ok') {
+					var token_ = _p0._0._0;
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								token: token_,
+								selectedSymptoms: {ctor: '[]'}
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				} else {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								token: A2(
+									_elm_lang$core$Basics_ops['++'],
+									'Error: ',
+									_elm_lang$core$Basics$toString(_p0._0._0)),
+								selectedSymptoms: {ctor: '[]'}
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				}
+			case 'LoadBodyLocations':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							selectedSymptoms: {ctor: '[]'}
+						}),
+					_1: A2(
+						_elm_lang$http$Http$send,
+						_user$project$Model$BodyLocations,
+						_user$project$Main$getData(
+							A2(_user$project$Main$creaUrl, model, 'body/locations')))
+				};
+			case 'BodyLocations':
+				if (_p0._0.ctor === 'Ok') {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								bodyLocations: _p0._0._0,
+								selectedSymptoms: {ctor: '[]'}
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				} else {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								errorMsg: _elm_lang$core$Basics$toString(_p0._0._0),
+								selectedSymptoms: {ctor: '[]'}
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				}
+			case 'LoadSubBodyLocations':
+				var path = A2(
+					_elm_lang$core$Basics_ops['++'],
+					'body/locations/',
+					_elm_lang$core$Basics$toString(_p0._0));
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							selectedSymptoms: {ctor: '[]'},
+							selectedTab: 1
+						}),
+					_1: A2(
+						_elm_lang$http$Http$send,
+						_user$project$Model$SubBodyLocations,
+						_user$project$Main$getData(
+							A2(_user$project$Main$creaUrl, model, path)))
+				};
+			case 'SubBodyLocations':
+				if (_p0._0.ctor === 'Err') {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								errorMsg: _elm_lang$core$Basics$toString(_p0._0._0),
+								selectedSymptoms: {ctor: '[]'}
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				} else {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								bodySubLocations: _p0._0._0,
+								selectedSymptoms: {ctor: '[]'}
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				}
+			case 'LoadSymptoms':
+				var path = A2(
+					_elm_lang$core$Basics_ops['++'],
+					'symptoms/',
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						_elm_lang$core$Basics$toString(_p0._0),
+						'/Man'));
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							selectedSymptoms: {ctor: '[]'},
+							selectedTab: 2
+						}),
+					_1: A2(
+						_elm_lang$http$Http$send,
+						_user$project$Model$Symptoms,
+						_user$project$Main$getData(
+							A2(_user$project$Main$creaUrl, model, path)))
+				};
+			case 'Symptoms':
+				if (_p0._0.ctor === 'Err') {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								errorMsg: _elm_lang$core$Basics$toString(_p0._0._0),
+								selectedSymptoms: {ctor: '[]'}
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				} else {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								symptoms: _p0._0._0,
+								selectedSymptoms: {ctor: '[]'}
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				}
+			case 'SelectSymptom':
+				var idSelected = _p0._0;
+				return A2(_elm_lang$core$List$member, idSelected, model.selectedSymptoms) ? {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							selectedSymptoms: A2(
+								_elm_lang$core$List$filter,
+								function (x) {
+									return !_elm_lang$core$Native_Utils.eq(x, idSelected);
+								},
+								model.selectedSymptoms)
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				} : {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							selectedSymptoms: {ctor: '::', _0: idSelected, _1: model.selectedSymptoms}
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'ComputeDiagnosis':
+				var sSymptoms = _elm_lang$core$Basics$toString(model.selectedSymptoms);
+				var path = A2(
+					_elm_lang$core$Basics_ops['++'],
+					'diagnosis?symptoms=',
+					A2(_elm_lang$core$Basics_ops['++'], sSymptoms, '&gender=Male&year_of_birth=1988'));
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: A2(
+						_elm_lang$http$Http$send,
+						_user$project$Model$Diagnosis,
+						_user$project$Main$getDiagnosisData(
+							A2(_user$project$Main$creaUrl, model, path)))
+				};
+			case 'Diagnosis':
+				if (_p0._0.ctor === 'Ok') {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{diagnosis: _p0._0._0}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				} else {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						_elm_lang$core$Native_Utils.update(
+							model,
+							{
+								errorMsg: _elm_lang$core$Basics$toString(_p0._0._0)
+							}),
+						{ctor: '[]'});
+				}
+			case 'SelectTab':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{selectedTab: 0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'Seleccionar':
+				var _p3 = _p0._1;
+				var _p1 = A2(_elm_lang$core$Debug$log, 'seleccionados:', _p0._0);
+				var _p2 = _p3;
+				switch (_p2) {
+					case 2:
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{selectedTab: _p3}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+					case 3:
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{selectedTab: _p3}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+					default:
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{selectedTab: _p3}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+				}
+			default:
+				return A3(_debois$elm_mdl$Material$update, _user$project$Model$Mdl, _p0._0, model);
+		}
+	});
+var _user$project$Main$main = _elm_lang$html$Html$program(
+	{
+		init: {
+			ctor: '_Tuple2',
+			_0: _user$project$Model$model,
+			_1: A2(
+				_elm_lang$http$Http$send,
+				_user$project$Model$Token,
+				_user$project$Main$getProtectedQuote(_user$project$Model$model))
+		},
+		update: _user$project$Main$update,
+		subscriptions: _elm_lang$core$Basics$always(_elm_lang$core$Platform_Sub$none),
+		view: _user$project$View$view
+	})();
