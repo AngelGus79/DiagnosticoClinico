@@ -18,6 +18,7 @@ type alias Model =
     , errorMsg : String
     , action : String
     , selectedTab : Int
+    , part : String
     }
 
 model : Model
@@ -33,12 +34,13 @@ model =   {
     , errorMsg = ""
     , action = ""
     , selectedTab = 0
+    , part = "----"
     }
        
     
 init : ( Model, Cmd Msg )
 init =
-    ( Model Material.model [] [] [] [] [] [] "" "" "" 0
+    ( Model Material.model [] [] [] [] [] [] "" "" "" 0 ""
     , Cmd.none
     )
     
@@ -100,7 +102,7 @@ type Msg
     | Token (Result Http.Error String)
     | LoadBodyLocations
     | BodyLocations (Result Http.Error (List Data))
-    | LoadSubBodyLocations Int
+    | LoadSubBodyLocations Int String
     | SubBodyLocations (Result Http.Error (List Data))
     | LoadSymptoms Int
     | Symptoms (Result Http.Error (List Data))

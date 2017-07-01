@@ -102,12 +102,12 @@ update msg model =
         BodyLocations (Err err) ->
             ( { model | errorMsg = toString err, selectedSymptoms = [] }, Cmd.none )
 
-        LoadSubBodyLocations id ->
+        LoadSubBodyLocations id cadena->
             let
                 path =
                     "body/locations/" ++ toString id
             in
-            ( { model | selectedSymptoms = [], selectedTab = 1 }
+            ( { model | selectedSymptoms = [], selectedTab = 1 ,part = cadena}
             , Http.send SubBodyLocations (getData (creaUrl model path))
             )
 

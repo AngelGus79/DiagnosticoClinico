@@ -128,7 +128,7 @@ toButton1  cadena id =
     Button.render Mdl
         [ 0 ]
         model.mdl
-        [ Options.onClick (LoadSubBodyLocations id)
+        [ Options.onClick (LoadSubBodyLocations id cadena)
         , css "margin" "0 24px"
         ]
         [ text cadena ]
@@ -174,7 +174,7 @@ viewPartesSel model =
         [ h4 []
             [ text "Partes del cuerpo" ]
         , Lists.ul []
-            [ Lists.li [] [ Lists.content [] [ text "parte1" ] ]
+            [ Lists.li [] [ Lists.content [] [ text model.part ] ]
             , Lists.li [] [ Lists.content [] [ text "parte2" ] ]
             ]
         , h4 []
@@ -190,7 +190,7 @@ viewSearchResult : Data -> Html Msg
 viewSearchResult result =
     li []
         [ div []
-            [ a [ href "#", onClick (LoadSubBodyLocations result.id) ] [ text result.name ]
+            [ a [ href "#", onClick (LoadSubBodyLocations result.id result.name) ] [ text result.name ]
             ]
         ]
 
