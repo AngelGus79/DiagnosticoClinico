@@ -139,7 +139,7 @@ toButton2 cadena id =
     Button.render Mdl
         [ 0 ]
         model.mdl
-        [ Options.onClick (LoadSymptoms id)
+        [ Options.onClick (LoadSymptoms id cadena)
         , css "margin" "0 24px"
         ]
         [ text cadena ]
@@ -175,7 +175,7 @@ viewPartesSel model =
             [ text "Partes del cuerpo" ]
         , Lists.ul []
             [ Lists.li [] [ Lists.content [] [ text model.part ] ]
-            , Lists.li [] [ Lists.content [] [ text "parte2" ] ]
+            , Lists.li [] [ Lists.content [] [ text model.subpart ] ]
             ]
         , h4 []
             [ text "Síntomas" ]
@@ -199,7 +199,7 @@ viewSubpartes : Data -> Html Msg
 viewSubpartes result =
     li []
         [ div []
-            [ a [ href "#", onClick (LoadSymptoms result.id) ] [ text result.name ]
+            [ a [ href "#", onClick (LoadSymptoms result.id result.name) ] [ text result.name ]
             ]
         ]
 

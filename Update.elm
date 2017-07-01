@@ -107,7 +107,7 @@ update msg model =
                 path =
                     "body/locations/" ++ toString id
             in
-            ( { model | selectedSymptoms = [], selectedTab = 1 ,part = cadena}
+            ( { model | selectedSymptoms = [], selectedTab = 1 , part = cadena}
             , Http.send SubBodyLocations (getData (creaUrl model path))
             )
 
@@ -119,12 +119,12 @@ update msg model =
         SubBodyLocations (Ok bodySubLocations) ->
             ( { model | bodySubLocations = bodySubLocations, selectedSymptoms = [] }, Cmd.none )
 
-        LoadSymptoms idSubLocation ->
+        LoadSymptoms idSubLocation cadena->
             let
                 path =
                     "symptoms/" ++ toString idSubLocation ++ "/Man"
             in
-            ( { model | selectedSymptoms = [], selectedTab = 2 }, Http.send Symptoms (getData (creaUrl model path)) )
+            ( { model | selectedSymptoms = [], selectedTab = 2 ,subpart = cadena}, Http.send Symptoms (getData (creaUrl model path)) )
 
         Symptoms (Err err) ->
             ( { model | errorMsg = toString err, selectedSymptoms = [] }, Cmd.none )
@@ -159,7 +159,7 @@ update msg model =
              { model | errorMsg = toString err
              }  ! []
         SelectTab num -> 
-            ({ model | selectedTab = 0 }, Cmd.none)
+            (model,  Http.send Token (getProtectedQuote model))
         Seleccionar sel num ->
             let
                 _ = Debug.log "seleccionados:" sel
