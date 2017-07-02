@@ -28,7 +28,7 @@ view model =
             model.mdl
             [ Layout.fixedDrawer
             , Layout.fixedHeader
-            , Layout.onSelectTab SelectTab
+            , Layout.onSelectTab LoadBodyLocations
             , Layout.selectedTab model.selectedTab
             ]
             { header = [ div [] [ h1 [] [ text "Programa médico" ] ] ]
@@ -38,7 +38,7 @@ view model =
                     ]
                 , div [] [ viewPartesSel model ]
                 ]
-            , tabs = ( [ text "Parte general del cuerpo", text "Parte específica del cuerpo", text "Síntoma", text "Síntomas propuestos", text "Sugerencia" ], [] )
+            , tabs = ( [ text "Parte general del cuerpo", text "Parte específica del cuerpo", text "Síntomas", text "Sugerencia" ], [] )
             , main = [
                    div [] (sessionOrBody model)
                   ]
@@ -48,7 +48,7 @@ sessionOrBody : Model -> List (Html Msg)
 sessionOrBody model = 
   case model.bodyLocations of
     [] -> [
-            Html.button [onClick LoadBodyLocations ] [text "Iniciar"]
+            Html.button [onClick (LoadBodyLocations 0)] [text "Iniciar"]
           ]
     _ -> [viewBody model]
 
@@ -65,14 +65,10 @@ viewBody model =
             viewSymptoms model
 
         3 ->
-            viewSintomas2 model
-
-        4 ->
-            text "Aqui va el resultado"
+          div [] (List.append (List.map viewDiagnosis model.diagnosis) [(text model.errorMsg)])
 
         _ ->
             text "404"
-
 
 viewBodyLocations : Model -> Html Msg
 viewBodyLocations model =
@@ -92,15 +88,18 @@ viewSymptoms : Model -> Html Msg
 viewSymptoms model =
     div
         [ style [ ( "padding", "2rem" ) ] ]
-        (button model.symptoms 3)
+        (List.append (button model.symptoms 3)  botonEnviar)
 
-
-viewSintomas2 : Model -> Html Msg
-viewSintomas2 model =
-    div
-        [ style [ ( "padding", "2rem" ) ] ]
-        (check [ "Sintoma P1", "Sintoma P2", "Sintoma P3" ] [ False, False, False ])
-
+botonEnviar : List (Html Msg)
+botonEnviar = [Button.render Mdl
+        [ 0 ]
+        model.mdl
+        [ Options.onClick ComputeDiagnosis
+        , Button.raised
+        , Button.colored
+        , css "margin" "0 24px"
+        ]
+        [ text "Enviar" ]]
 
 button : List Data -> Int -> List (Html Msg)
 button partes tab =
@@ -150,7 +149,7 @@ toButton3 cadena id =
     Button.render Mdl
         [ 0 ]
         model.mdl
-        [ Options.onClick (Seleccionar cadena id)
+        [ Options.onClick (SelectSymptom id cadena)
         , css "margin" "0 24px"
         ]
         [ text cadena ]
@@ -168,7 +167,7 @@ toButton4 cadena sel =
         [ text cadena ]
 
 
-viewPartesSel : Model -> Html msg
+viewPartesSel : Model -> Html Msg
 viewPartesSel model =
     div []
         [ h4 []
@@ -180,11 +179,11 @@ viewPartesSel model =
         , h4 []
             [ text "Síntomas" ]
         , Lists.ul []
-            [ Lists.li [] [ Lists.content [] [ text "Sintoma1" ] ]
-            , Lists.li [] [ Lists.content [] [ text "Sintoma2" ] ]
-            ]
+            (List.map sintomas model.selectedSymptomsS)
         ]
 
+sintomas: String -> Html Msg
+sintomas nombre =  Lists.li [] [ Lists.content [] [ text nombre ]]
 
 viewSearchResult : Data -> Html Msg
 viewSearchResult result =

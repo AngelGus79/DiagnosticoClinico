@@ -91,8 +91,12 @@ update msg model =
             , Cmd.none
             )
 
-        LoadBodyLocations ->
-            ( { model | selectedSymptoms = [] }
+        LoadBodyLocations n ->
+            ( { model | selectedSymptoms = []
+                , selectedSymptomsS = []
+                , part = "----"
+                , subpart = "----"
+                , selectedTab = 0 }
             , Http.send BodyLocations (getData (creaUrl model "body/locations"))
             )
 
@@ -132,15 +136,17 @@ update msg model =
         Symptoms (Ok symptoms) ->
             ( { model | symptoms = symptoms, selectedSymptoms = [] }, Cmd.none )
 
-        SelectSymptom id ->
+        SelectSymptom id cadena ->
             let
                 idSelected =
                     id
             in
             if List.member idSelected model.selectedSymptoms then
-                ( { model | selectedSymptoms = List.filter (\x -> x /= idSelected) model.selectedSymptoms }, Cmd.none )
+                ( { model | selectedSymptoms = List.filter (\x -> x /= idSelected) model.selectedSymptoms 
+                    , selectedSymptomsS = List.filter (\x -> x /= cadena) model.selectedSymptomsS}, Cmd.none )
             else
-                ( { model | selectedSymptoms = idSelected :: model.selectedSymptoms }, Cmd.none )
+                ( { model | selectedSymptoms = idSelected :: model.selectedSymptoms
+                ,selectedSymptomsS = cadena :: model.selectedSymptomsS }, Cmd.none )
 
         ComputeDiagnosis ->
             let
@@ -150,7 +156,7 @@ update msg model =
                 path =
                     "diagnosis?symptoms=" ++ sSymptoms ++ "&gender=Male&year_of_birth=1988"
             in
-            ( model, Http.send Diagnosis (getDiagnosisData (creaUrl model path)) )
+            ( {model| selectedTab = 3}, Http.send Diagnosis (getDiagnosisData (creaUrl model path)) )
 
         Diagnosis (Ok diagnosis) ->
             ( { model | diagnosis = diagnosis }, Cmd.none )
