@@ -16240,7 +16240,7 @@ var _user$project$Model$model = {
 	subpart: '----',
 	name: '',
 	age: '',
-	sexo: 'Male'
+	gender: 'Male'
 };
 var _user$project$Model$Model = function (a) {
 	return function (b) {
@@ -16259,7 +16259,7 @@ var _user$project$Model$Model = function (a) {
 														return function (o) {
 															return function (p) {
 																return function (q) {
-																	return {mdl: a, data: b, bodyLocations: c, bodySubLocations: d, symptoms: e, selectedSymptoms: f, selectedSymptomsS: g, diagnosis: h, token: i, errorMsg: j, action: k, selectedTab: l, part: m, subpart: n, name: o, age: p, sexo: q};
+																	return {mdl: a, data: b, bodyLocations: c, bodySubLocations: d, symptoms: e, selectedSymptoms: f, selectedSymptomsS: g, diagnosis: h, token: i, errorMsg: j, action: k, selectedTab: l, part: m, subpart: n, name: o, age: p, gender: q};
 																};
 															};
 														};
@@ -16971,7 +16971,7 @@ var _user$project$View$viewData = function (model) {
 										{
 											ctor: '::',
 											_0: _debois$elm_mdl$Material_Toggles$value(
-												_user$project$View$isMale(model.sexo)),
+												_user$project$View$isMale(model.gender)),
 											_1: {
 												ctor: '::',
 												_0: _debois$elm_mdl$Material_Toggles$group('sexo'),
@@ -16989,7 +16989,7 @@ var _user$project$View$viewData = function (model) {
 										},
 										{
 											ctor: '::',
-											_0: _elm_lang$html$Html$text('Hombre    '),
+											_0: _elm_lang$html$Html$text('Hombre'),
 											_1: {ctor: '[]'}
 										}),
 									_1: {
@@ -17006,7 +17006,7 @@ var _user$project$View$viewData = function (model) {
 											{
 												ctor: '::',
 												_0: _debois$elm_mdl$Material_Toggles$value(
-													!_user$project$View$isMale(model.sexo)),
+													!_user$project$View$isMale(model.gender)),
 												_1: {
 													ctor: '::',
 													_0: _debois$elm_mdl$Material_Toggles$group('sexo'),
@@ -17521,13 +17521,20 @@ var _user$project$Main$update = F2(
 					};
 				}
 			case 'LoadSymptoms':
-				var path = A2(
+				var _p2 = _p0._0;
+				var path = _elm_lang$core$Native_Utils.eq(model.gender, 'Male') ? A2(
 					_elm_lang$core$Basics_ops['++'],
 					'symptoms/',
 					A2(
 						_elm_lang$core$Basics_ops['++'],
-						_elm_lang$core$Basics$toString(_p0._0),
-						'/Man'));
+						_elm_lang$core$Basics$toString(_p2),
+						'/Man')) : A2(
+					_elm_lang$core$Basics_ops['++'],
+					'symptoms/',
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						_elm_lang$core$Basics$toString(_p2),
+						'/Woman'));
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
@@ -17568,7 +17575,7 @@ var _user$project$Main$update = F2(
 					};
 				}
 			case 'SelectSymptom':
-				var _p2 = _p0._1;
+				var _p3 = _p0._1;
 				var idSelected = _p0._0;
 				return A2(_elm_lang$core$List$member, idSelected, model.selectedSymptoms) ? {
 					ctor: '_Tuple2',
@@ -17584,7 +17591,7 @@ var _user$project$Main$update = F2(
 							selectedSymptomsS: A2(
 								_elm_lang$core$List$filter,
 								function (x) {
-									return !_elm_lang$core$Native_Utils.eq(x, _p2);
+									return !_elm_lang$core$Native_Utils.eq(x, _p3);
 								},
 								model.selectedSymptomsS)
 						}),
@@ -17595,7 +17602,7 @@ var _user$project$Main$update = F2(
 						model,
 						{
 							selectedSymptoms: {ctor: '::', _0: idSelected, _1: model.selectedSymptoms},
-							selectedSymptomsS: {ctor: '::', _0: _p2, _1: model.selectedSymptomsS}
+							selectedSymptomsS: {ctor: '::', _0: _p3, _1: model.selectedSymptomsS}
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
@@ -17604,7 +17611,19 @@ var _user$project$Main$update = F2(
 				var path = A2(
 					_elm_lang$core$Basics_ops['++'],
 					'diagnosis?symptoms=',
-					A2(_elm_lang$core$Basics_ops['++'], sSymptoms, '&gender=Male&year_of_birth=1988'));
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						sSymptoms,
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'&gender=',
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								model.gender,
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									'&year_of_birth=',
+									_elm_lang$core$Basics$toString(model.age))))));
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
@@ -17636,13 +17655,13 @@ var _user$project$Main$update = F2(
 						{ctor: '[]'});
 				}
 			case 'Seleccionar':
-				var _p3 = _p0._0;
-				return (_elm_lang$core$Native_Utils.cmp(_p3, 4) < 0) ? {
+				var _p4 = _p0._0;
+				return (_elm_lang$core$Native_Utils.cmp(_p4, 4) < 0) ? {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{
-							selectedTab: _p3,
+							selectedTab: _p4,
 							selectedSymptoms: {ctor: '[]'},
 							selectedSymptomsS: {ctor: '[]'}
 						}),
@@ -17651,7 +17670,7 @@ var _user$project$Main$update = F2(
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
-						{selectedTab: _p3}),
+						{selectedTab: _p4}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'Mdl':
@@ -17661,7 +17680,7 @@ var _user$project$Main$update = F2(
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
-						{sexo: _p0._0}),
+						{gender: _p0._0}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 		}

@@ -133,7 +133,10 @@ update msg model =
         LoadSymptoms idSubLocation cadena->
             let
                 path =
-                    "symptoms/" ++ toString idSubLocation ++ "/Man"
+                if model.gender == "Male" then
+                     "symptoms/" ++ toString idSubLocation ++ "/Man"
+                else
+                     "symptoms/" ++ toString idSubLocation ++ "/Woman"
             in
             ( { model | selectedSymptoms = [], selectedTab = 3 ,subpart = cadena}, Http.send Symptoms (getData (creaUrl model path)) )
 
@@ -161,7 +164,7 @@ update msg model =
                     toString model.selectedSymptoms
 
                 path =
-                    "diagnosis?symptoms=" ++ sSymptoms ++ "&gender=Male&year_of_birth=1988"
+                    "diagnosis?symptoms=" ++ sSymptoms ++ "&gender=" ++ model.gender ++ "&year_of_birth=" ++ (toString model.age)
             in
             ( {model| selectedTab = 4}, Http.send Diagnosis (getDiagnosisData (creaUrl model path)) )
 
@@ -180,6 +183,6 @@ update msg model =
             Material.update Mdl msg_ model
 
         RadioMsg s ->
-            ({model | sexo = s},Cmd.none)
+            ({model | gender = s},Cmd.none)
 
 

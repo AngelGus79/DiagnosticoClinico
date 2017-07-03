@@ -587,7 +587,7 @@ var _user$project$View$viewData = function (model) {
 										{
 											ctor: '::',
 											_0: _debois$elm_mdl$Material_Toggles$value(
-												_user$project$View$isMale(model.sexo)),
+												_user$project$View$isMale(model.gender)),
 											_1: {
 												ctor: '::',
 												_0: _debois$elm_mdl$Material_Toggles$group('sexo'),
@@ -605,7 +605,7 @@ var _user$project$View$viewData = function (model) {
 										},
 										{
 											ctor: '::',
-											_0: _elm_lang$html$Html$text('Hombre    '),
+											_0: _elm_lang$html$Html$text('Hombre'),
 											_1: {ctor: '[]'}
 										}),
 									_1: {
@@ -622,7 +622,7 @@ var _user$project$View$viewData = function (model) {
 											{
 												ctor: '::',
 												_0: _debois$elm_mdl$Material_Toggles$value(
-													!_user$project$View$isMale(model.sexo)),
+													!_user$project$View$isMale(model.gender)),
 												_1: {
 													ctor: '::',
 													_0: _debois$elm_mdl$Material_Toggles$group('sexo'),

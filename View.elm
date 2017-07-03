@@ -109,15 +109,15 @@ viewData model = div []
           , Lists.li []
               [Lists.content []
                 [ (Toggles.radio Mdl [0] model.mdl
-                  [ Toggles.value (isMale model.sexo)
+                  [ Toggles.value (isMale model.gender)
                   , Toggles.group "sexo"
                   , Toggles.ripple
                   , Options.onToggle (RadioMsg "Male")
                   ]
-                  [ text "Hombre    " ]
+                  [ text "Hombre" ]
                   )
                 , (Toggles.radio Mdl [1] model.mdl
-                  [ Toggles.value (not(isMale model.sexo))
+                  [ Toggles.value (not(isMale model.gender))
                   , Toggles.group "sexo"
                   , Toggles.ripple
                   , Options.onToggle (RadioMsg "Female")

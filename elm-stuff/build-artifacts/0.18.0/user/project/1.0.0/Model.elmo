@@ -16,7 +16,7 @@ var _user$project$Model$model = {
 	subpart: '----',
 	name: '',
 	age: '',
-	sexo: 'Male'
+	gender: 'Male'
 };
 var _user$project$Model$Model = function (a) {
 	return function (b) {
@@ -35,7 +35,7 @@ var _user$project$Model$Model = function (a) {
 														return function (o) {
 															return function (p) {
 																return function (q) {
-																	return {mdl: a, data: b, bodyLocations: c, bodySubLocations: d, symptoms: e, selectedSymptoms: f, selectedSymptomsS: g, diagnosis: h, token: i, errorMsg: j, action: k, selectedTab: l, part: m, subpart: n, name: o, age: p, sexo: q};
+																	return {mdl: a, data: b, bodyLocations: c, bodySubLocations: d, symptoms: e, selectedSymptoms: f, selectedSymptomsS: g, diagnosis: h, token: i, errorMsg: j, action: k, selectedTab: l, part: m, subpart: n, name: o, age: p, gender: q};
 																};
 															};
 														};

@@ -23,7 +23,7 @@ type alias Model =
     , subpart : String
     , name : String
     , age : String
-    , sexo : String
+    , gender : String
     }
 
 model : Model
@@ -44,7 +44,7 @@ model =   {
     , subpart = "----"
     , name = ""
     , age = ""
-    , sexo = "Male"
+    , gender = "Male"
     }
        
     
