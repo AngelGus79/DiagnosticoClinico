@@ -86,6 +86,23 @@ var _user$project$Main$update = F2(
 	function (msg, model) {
 		var _p0 = msg;
 		switch (_p0.ctor) {
+			case 'ChangeName':
+				var _p1 = A2(_elm_lang$core$Debug$log, 'Nombre ', model.name);
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{name: _p0._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'ChangeAge':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{age: _p0._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
 			case 'GetToken':
 				return {
 					ctor: '_Tuple2',
@@ -133,7 +150,11 @@ var _user$project$Main$update = F2(
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{
-							selectedSymptoms: {ctor: '[]'}
+							selectedSymptoms: {ctor: '[]'},
+							selectedSymptomsS: {ctor: '[]'},
+							part: '----',
+							subpart: '----',
+							selectedTab: 1
 						}),
 					_1: A2(
 						_elm_lang$http$Http$send,
@@ -176,7 +197,8 @@ var _user$project$Main$update = F2(
 						model,
 						{
 							selectedSymptoms: {ctor: '[]'},
-							selectedTab: 1
+							selectedTab: 2,
+							part: _p0._1
 						}),
 					_1: A2(
 						_elm_lang$http$Http$send,
@@ -222,7 +244,8 @@ var _user$project$Main$update = F2(
 						model,
 						{
 							selectedSymptoms: {ctor: '[]'},
-							selectedTab: 2
+							selectedTab: 3,
+							subpart: _p0._1
 						}),
 					_1: A2(
 						_elm_lang$http$Http$send,
@@ -255,6 +278,7 @@ var _user$project$Main$update = F2(
 					};
 				}
 			case 'SelectSymptom':
+				var _p2 = _p0._1;
 				var idSelected = _p0._0;
 				return A2(_elm_lang$core$List$member, idSelected, model.selectedSymptoms) ? {
 					ctor: '_Tuple2',
@@ -266,7 +290,13 @@ var _user$project$Main$update = F2(
 								function (x) {
 									return !_elm_lang$core$Native_Utils.eq(x, idSelected);
 								},
-								model.selectedSymptoms)
+								model.selectedSymptoms),
+							selectedSymptomsS: A2(
+								_elm_lang$core$List$filter,
+								function (x) {
+									return !_elm_lang$core$Native_Utils.eq(x, _p2);
+								},
+								model.selectedSymptomsS)
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				} : {
@@ -274,7 +304,8 @@ var _user$project$Main$update = F2(
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{
-							selectedSymptoms: {ctor: '::', _0: idSelected, _1: model.selectedSymptoms}
+							selectedSymptoms: {ctor: '::', _0: idSelected, _1: model.selectedSymptoms},
+							selectedSymptomsS: {ctor: '::', _0: _p2, _1: model.selectedSymptomsS}
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
@@ -286,7 +317,9 @@ var _user$project$Main$update = F2(
 					A2(_elm_lang$core$Basics_ops['++'], sSymptoms, '&gender=Male&year_of_birth=1988'));
 				return {
 					ctor: '_Tuple2',
-					_0: model,
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{selectedTab: 4}),
 					_1: A2(
 						_elm_lang$http$Http$send,
 						_user$project$Model$Diagnosis,
@@ -312,46 +345,35 @@ var _user$project$Main$update = F2(
 							}),
 						{ctor: '[]'});
 				}
-			case 'SelectTab':
+			case 'Seleccionar':
+				var _p3 = _p0._0;
+				return (_elm_lang$core$Native_Utils.cmp(_p3, 4) < 0) ? {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							selectedTab: _p3,
+							selectedSymptoms: {ctor: '[]'},
+							selectedSymptomsS: {ctor: '[]'}
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				} : {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{selectedTab: _p3}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'Mdl':
+				return A3(_debois$elm_mdl$Material$update, _user$project$Model$Mdl, _p0._0, model);
+			default:
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
-						{selectedTab: 0}),
+						{sexo: _p0._0}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
-			case 'Seleccionar':
-				var _p3 = _p0._1;
-				var _p1 = A2(_elm_lang$core$Debug$log, 'seleccionados:', _p0._0);
-				var _p2 = _p3;
-				switch (_p2) {
-					case 2:
-						return {
-							ctor: '_Tuple2',
-							_0: _elm_lang$core$Native_Utils.update(
-								model,
-								{selectedTab: _p3}),
-							_1: _elm_lang$core$Platform_Cmd$none
-						};
-					case 3:
-						return {
-							ctor: '_Tuple2',
-							_0: _elm_lang$core$Native_Utils.update(
-								model,
-								{selectedTab: _p3}),
-							_1: _elm_lang$core$Platform_Cmd$none
-						};
-					default:
-						return {
-							ctor: '_Tuple2',
-							_0: _elm_lang$core$Native_Utils.update(
-								model,
-								{selectedTab: _p3}),
-							_1: _elm_lang$core$Platform_Cmd$none
-						};
-				}
-			default:
-				return A3(_debois$elm_mdl$Material$update, _user$project$Model$Mdl, _p0._0, model);
 		}
 	});
 var _user$project$Main$main = _elm_lang$html$Html$program(

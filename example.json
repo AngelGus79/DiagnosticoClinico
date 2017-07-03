@@ -1,0 +1,67 @@
+[
+   {
+      "Issue":{
+         "ID":11,
+         "Accuracy":90,
+         "ProfName":"Influenza",
+         "Ranking":1,
+         "Name":"Gripe",
+         "IcdName":"Influenza due to other identified influenza virus;Influenza, virus not identified",
+         "Icd":"J10;J11"
+      },
+      "Specialisation":[
+         {
+            "SpecialistID":0,
+            "Name":"Medicina general",
+            "ID":15
+         },
+         {
+            "SpecialistID":0,
+            "Name":"Medicina interna",
+            "ID":19
+         }
+      ]
+   },
+   {
+      "Issue":{
+         "ID":181,
+         "Accuracy":60,
+         "ProfName":"Trastorno de ansiedad",
+         "Ranking":2,
+         "Name":"Temor excesivo",
+         "IcdName":"Phobic anxiety disorders;Other anxiety disorders",
+         "Icd":"F40;F41"
+      },
+      "Specialisation":[
+         {
+            "SpecialistID":0,
+            "Name":"Medicina general",
+            "ID":15
+         },
+         {
+            "SpecialistID":0,
+            "Name":"Psiquiatr\u00eda",
+            "ID":36
+         }
+      ]
+   },
+   {
+      "Issue":{
+         "ID":431,
+         "Accuracy":45,
+         "ProfName":"Reacci\u00f3n farmacol\u00f3gica adversa",
+         "Ranking":3,
+         "Name":"Efectos secundarios de los medicamentos",
+         "IcdName":"Unspecified adverse effect of drug or medicament",
+         "Icd":"T88.7"
+      },
+      "Specialisation":[
+         {
+            "SpecialistID":0,
+            "Name":"Medicina general",
+            "ID":15
+         },
+         {
+            "SpecialistID":0,
+            "Name":"Medicina interna",
+            "ID":
