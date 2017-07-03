@@ -83,11 +83,13 @@ viewBody model =
 viewData : Model -> Html Msg
 viewData model = div [] 
           [Lists.ul []
-            [ Lists.li []
+            [ h3 [] [text "Ingresa tus datos"]
+            , Lists.li []
               [Lists.content []
                 [ (Textfield.render Mdl [0] model.mdl
                   [ Textfield.label "Escribe tu nombre"
                   , Textfield.floatingLabel
+                  , Textfield.value model.name
                   , Options.onInput ChangeName 
                   ] []
                   )
@@ -99,6 +101,7 @@ viewData model = div []
                 [ (Textfield.render Mdl [1] model.mdl
                   [ Textfield.label "Escribe tu edad"
                   , Textfield.floatingLabel
+                  , Textfield.value model.age
                   , Options.onInput ChangeAge
                   , Textfield.error ("No es un numero")
                       |> Options.when (not <| match model.age (Regex.regex "[0-9]*"))
