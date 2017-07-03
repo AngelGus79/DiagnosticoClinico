@@ -28,7 +28,7 @@ view model =
             model.mdl
             [ Layout.fixedDrawer
             , Layout.fixedHeader
-            , Layout.onSelectTab SelectTab
+            , Layout.onSelectTab LoadBodyLocations
             , Layout.selectedTab model.selectedTab
             ]
             { header = [ div [] [ h1 [] [ text "Programa médico" ] ] ]
@@ -38,15 +38,19 @@ view model =
                     ]
                 , div [] [ viewPartesSel model ]
                 ]
-            , tabs = ( [ text "Parte general del cuerpo", text "Parte específica del cuerpo", text "Síntoma", text "Síntomas propuestos", text "Sugerencia" ], [] )
+            , tabs = ( [ text "Parte general del cuerpo", text "Parte específica del cuerpo", text "Síntomas", text "Sugerencia" ], [] )
             , main = [
-                   div [] [
-                        Html.button [onClick LoadBodyLocations ] [text "iniciar"]
-                       ]
-                   , viewBody model
+                   div [] (sessionOrBody model)
                   ]
             }
 
+sessionOrBody : Model -> List (Html Msg)
+sessionOrBody model = 
+  case model.bodyLocations of
+    [] -> [
+            Html.button [onClick (LoadBodyLocations 0)] [text "Iniciar"]
+          ]
+    _ -> [viewBody model]
 
 viewBody : Model -> Html Msg
 viewBody model =
@@ -61,57 +65,56 @@ viewBody model =
             viewSymptoms model
 
         3 ->
-            viewSintomas2 model
-
-        4 ->
-            text "Aqui va el resultado"
+          div [] (List.append (List.map viewDiagnosis model.diagnosis) [(text model.errorMsg)])
 
         _ ->
             text "404"
-
 
 viewBodyLocations : Model -> Html Msg
 viewBodyLocations model =
     div
         [ style [ ( "padding", "2rem" ) ] ]
-        (button (List.map (\x -> x.name) model.bodyLocations) 1)
+        (button model.bodyLocations 1)
 
 
 viewBodySubLocations : Model -> Html Msg
 viewBodySubLocations model =
     div
         [ style [ ( "padding", "2rem" ) ] ]
-        (button (List.map (\ x -> x.name) model.bodySubLocations ) 2)
+        (button model.bodySubLocations 2)
 
 
 viewSymptoms : Model -> Html Msg
 viewSymptoms model =
     div
         [ style [ ( "padding", "2rem" ) ] ]
-        (button (List.map(\ x -> x.name) model.symptoms) 3)
+        (List.append (button model.symptoms 3)  botonEnviar)
 
+botonEnviar : List (Html Msg)
+botonEnviar = [Button.render Mdl
+        [ 0 ]
+        model.mdl
+        [ Options.onClick ComputeDiagnosis
+        , Button.raised
+        , Button.colored
+        , css "margin" "0 24px"
+        ]
+        [ text "Enviar" ]]
 
-viewSintomas2 : Model -> Html Msg
-viewSintomas2 model =
-    div
-        [ style [ ( "padding", "2rem" ) ] ]
-        (check [ "Sintoma P1", "Sintoma P2", "Sintoma P3" ] [ False, False, False ])
-
-
-button : List String -> Int -> List (Html Msg)
+button : List Data -> Int -> List (Html Msg)
 button partes tab =
     case tab of
         1 ->
-            List.map toButton1 partes
+            List.map2 toButton1 (List.map (\ x -> x.name) partes) (List.map (\ x -> x.id) partes)
 
         2 ->
-            List.map toButton2 partes
+            List.map2 toButton2 (List.map (\ x -> x.name) partes) (List.map (\ x -> x.id) partes)
 
         3 ->
-            List.map toButton3 partes
+            List.map2 toButton3 (List.map (\ x -> x.name) partes) (List.map (\ x -> x.id) partes)
 
         _ ->
-            List.map toButton1 partes
+            List.map2 toButton1 (List.map (\ x -> x.name) partes) (List.map (\ x -> x.id) partes)
 
 
 check : List String -> List Bool -> List (Html Msg)
@@ -119,34 +122,34 @@ check partes selec =
     List.map2 toButton4 partes selec
 
 
-toButton1 : String -> Html Msg
-toButton1  cadena =
+toButton1 : String -> Int -> Html Msg
+toButton1  cadena id =
     Button.render Mdl
         [ 0 ]
         model.mdl
-        [ Options.onClick (LoadSubBodyLocations 7)
+        [ Options.onClick (LoadSubBodyLocations id cadena)
         , css "margin" "0 24px"
         ]
         [ text cadena ]
 
 
-toButton2 : String -> Html Msg
-toButton2 cadena =
+toButton2 : String -> Int -> Html Msg
+toButton2 cadena id =
     Button.render Mdl
         [ 0 ]
         model.mdl
-        [ Options.onClick (LoadSymptoms 48)
+        [ Options.onClick (LoadSymptoms id cadena)
         , css "margin" "0 24px"
         ]
         [ text cadena ]
 
 
-toButton3 : String -> Html Msg
-toButton3 cadena =
+toButton3 : String -> Int -> Html Msg
+toButton3 cadena id =
     Button.render Mdl
         [ 0 ]
         model.mdl
-        [ Options.onClick (Seleccionar cadena 3)
+        [ Options.onClick (SelectSymptom id cadena)
         , css "margin" "0 24px"
         ]
         [ text cadena ]
@@ -164,29 +167,29 @@ toButton4 cadena sel =
         [ text cadena ]
 
 
-viewPartesSel : Model -> Html msg
+viewPartesSel : Model -> Html Msg
 viewPartesSel model =
     div []
         [ h4 []
             [ text "Partes del cuerpo" ]
         , Lists.ul []
-            [ Lists.li [] [ Lists.content [] [ text "parte1" ] ]
-            , Lists.li [] [ Lists.content [] [ text "parte2" ] ]
+            [ Lists.li [] [ Lists.content [] [ text model.part ] ]
+            , Lists.li [] [ Lists.content [] [ text model.subpart ] ]
             ]
         , h4 []
             [ text "Síntomas" ]
         , Lists.ul []
-            [ Lists.li [] [ Lists.content [] [ text "Sintoma1" ] ]
-            , Lists.li [] [ Lists.content [] [ text "Sintoma2" ] ]
-            ]
+            (List.map sintomas model.selectedSymptomsS)
         ]
 
+sintomas: String -> Html Msg
+sintomas nombre =  Lists.li [] [ Lists.content [] [ text nombre ]]
 
 viewSearchResult : Data -> Html Msg
 viewSearchResult result =
     li []
         [ div []
-            [ a [ href "#", onClick (LoadSubBodyLocations result.id) ] [ text result.name ]
+            [ a [ href "#", onClick (LoadSubBodyLocations result.id result.name) ] [ text result.name ]
             ]
         ]
 
@@ -195,7 +198,7 @@ viewSubpartes : Data -> Html Msg
 viewSubpartes result =
     li []
         [ div []
-            [ a [ href "#", onClick (LoadSymptoms result.id) ] [ text result.name ]
+            [ a [ href "#", onClick (LoadSymptoms result.id result.name) ] [ text result.name ]
             ]
         ]
 

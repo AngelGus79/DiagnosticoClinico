@@ -13,11 +13,14 @@ type alias Model =
     , bodySubLocations : List Data
     , symptoms : List Data
     , selectedSymptoms : List Int
+    , selectedSymptomsS : List String
     , diagnosis : List General
     , token : String
     , errorMsg : String
     , action : String
     , selectedTab : Int
+    , part : String
+    , subpart : String
     }
 
 model : Model
@@ -28,17 +31,20 @@ model =   {
     , bodySubLocations = []
     , symptoms = []
     , selectedSymptoms = []
+    , selectedSymptomsS = []
     , diagnosis = []
     , token = ""
     , errorMsg = ""
     , action = ""
     , selectedTab = 0
+    , part = "----"
+    , subpart = "----"
     }
        
     
 init : ( Model, Cmd Msg )
 init =
-    ( Model Material.model [] [] [] [] [] [] "" "" "" 0
+    ( Model Material.model [] [] [] [] [] [] [] "" "" "" 0 "" ""
     , Cmd.none
     )
     
@@ -98,13 +104,13 @@ tokenDecoder =
 type Msg
     = GetToken
     | Token (Result Http.Error String)
-    | LoadBodyLocations
+    | LoadBodyLocations Int
     | BodyLocations (Result Http.Error (List Data))
-    | LoadSubBodyLocations Int
+    | LoadSubBodyLocations Int String
     | SubBodyLocations (Result Http.Error (List Data))
-    | LoadSymptoms Int
+    | LoadSymptoms Int String
     | Symptoms (Result Http.Error (List Data))
-    | SelectSymptom Int
+    | SelectSymptom Int String
     | ComputeDiagnosis
     | Diagnosis (Result Http.Error (List General))
     | SelectTab Int  

@@ -91,8 +91,12 @@ update msg model =
             , Cmd.none
             )
 
-        LoadBodyLocations ->
-            ( { model | selectedSymptoms = [] }
+        LoadBodyLocations n ->
+            ( { model | selectedSymptoms = []
+                , selectedSymptomsS = []
+                , part = "----"
+                , subpart = "----"
+                , selectedTab = 0 }
             , Http.send BodyLocations (getData (creaUrl model "body/locations"))
             )
 
@@ -102,12 +106,12 @@ update msg model =
         BodyLocations (Err err) ->
             ( { model | errorMsg = toString err, selectedSymptoms = [] }, Cmd.none )
 
-        LoadSubBodyLocations id ->
+        LoadSubBodyLocations id cadena->
             let
                 path =
                     "body/locations/" ++ toString id
             in
-            ( { model | selectedSymptoms = [], selectedTab = 1 }
+            ( { model | selectedSymptoms = [], selectedTab = 1 , part = cadena}
             , Http.send SubBodyLocations (getData (creaUrl model path))
             )
 
@@ -119,12 +123,12 @@ update msg model =
         SubBodyLocations (Ok bodySubLocations) ->
             ( { model | bodySubLocations = bodySubLocations, selectedSymptoms = [] }, Cmd.none )
 
-        LoadSymptoms idSubLocation ->
+        LoadSymptoms idSubLocation cadena->
             let
                 path =
                     "symptoms/" ++ toString idSubLocation ++ "/Man"
             in
-            ( { model | selectedSymptoms = [], selectedTab = 2 }, Http.send Symptoms (getData (creaUrl model path)) )
+            ( { model | selectedSymptoms = [], selectedTab = 2 ,subpart = cadena}, Http.send Symptoms (getData (creaUrl model path)) )
 
         Symptoms (Err err) ->
             ( { model | errorMsg = toString err, selectedSymptoms = [] }, Cmd.none )
@@ -132,15 +136,17 @@ update msg model =
         Symptoms (Ok symptoms) ->
             ( { model | symptoms = symptoms, selectedSymptoms = [] }, Cmd.none )
 
-        SelectSymptom id ->
+        SelectSymptom id cadena ->
             let
                 idSelected =
                     id
             in
             if List.member idSelected model.selectedSymptoms then
-                ( { model | selectedSymptoms = List.filter (\x -> x /= idSelected) model.selectedSymptoms }, Cmd.none )
+                ( { model | selectedSymptoms = List.filter (\x -> x /= idSelected) model.selectedSymptoms 
+                    , selectedSymptomsS = List.filter (\x -> x /= cadena) model.selectedSymptomsS}, Cmd.none )
             else
-                ( { model | selectedSymptoms = idSelected :: model.selectedSymptoms }, Cmd.none )
+                ( { model | selectedSymptoms = idSelected :: model.selectedSymptoms
+                ,selectedSymptomsS = cadena :: model.selectedSymptomsS }, Cmd.none )
 
         ComputeDiagnosis ->
             let
@@ -150,7 +156,7 @@ update msg model =
                 path =
                     "diagnosis?symptoms=" ++ sSymptoms ++ "&gender=Male&year_of_birth=1988"
             in
-            ( model, Http.send Diagnosis (getDiagnosisData (creaUrl model path)) )
+            ( {model| selectedTab = 3}, Http.send Diagnosis (getDiagnosisData (creaUrl model path)) )
 
         Diagnosis (Ok diagnosis) ->
             ( { model | diagnosis = diagnosis }, Cmd.none )
@@ -159,7 +165,7 @@ update msg model =
              { model | errorMsg = toString err
              }  ! []
         SelectTab num -> 
-            ({ model | selectedTab = 0 }, Cmd.none)
+            (model,  Http.send Token (getProtectedQuote model))
         Seleccionar sel num ->
             let
                 _ = Debug.log "seleccionados:" sel
