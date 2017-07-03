@@ -6,11 +6,14 @@ var _user$project$Model$model = {
 	bodySubLocations: {ctor: '[]'},
 	symptoms: {ctor: '[]'},
 	selectedSymptoms: {ctor: '[]'},
+	selectedSymptomsS: {ctor: '[]'},
 	diagnosis: {ctor: '[]'},
 	token: '',
 	errorMsg: '',
 	action: '',
-	selectedTab: 0
+	selectedTab: 0,
+	part: '----',
+	subpart: '----'
 };
 var _user$project$Model$Model = function (a) {
 	return function (b) {
@@ -23,7 +26,13 @@ var _user$project$Model$Model = function (a) {
 								return function (i) {
 									return function (j) {
 										return function (k) {
-											return {mdl: a, data: b, bodyLocations: c, bodySubLocations: d, symptoms: e, selectedSymptoms: f, diagnosis: g, token: h, errorMsg: i, action: j, selectedTab: k};
+											return function (l) {
+												return function (m) {
+													return function (n) {
+														return {mdl: a, data: b, bodyLocations: c, bodySubLocations: d, symptoms: e, selectedSymptoms: f, selectedSymptomsS: g, diagnosis: h, token: i, errorMsg: j, action: k, selectedTab: l, part: m, subpart: n};
+													};
+												};
+											};
 										};
 									};
 								};
@@ -43,7 +52,8 @@ var _user$project$Model$init = {
 		{ctor: '[]'})(
 		{ctor: '[]'})(
 		{ctor: '[]'})(
-		{ctor: '[]'})('')('')('')(0),
+		{ctor: '[]'})(
+		{ctor: '[]'})('')('')('')(0)('')(''),
 	_1: _elm_lang$core$Platform_Cmd$none
 };
 var _user$project$Model$Data = F2(
@@ -106,25 +116,30 @@ var _user$project$Model$Diagnosis = function (a) {
 	return {ctor: 'Diagnosis', _0: a};
 };
 var _user$project$Model$ComputeDiagnosis = {ctor: 'ComputeDiagnosis'};
-var _user$project$Model$SelectSymptom = function (a) {
-	return {ctor: 'SelectSymptom', _0: a};
-};
+var _user$project$Model$SelectSymptom = F2(
+	function (a, b) {
+		return {ctor: 'SelectSymptom', _0: a, _1: b};
+	});
 var _user$project$Model$Symptoms = function (a) {
 	return {ctor: 'Symptoms', _0: a};
 };
-var _user$project$Model$LoadSymptoms = function (a) {
-	return {ctor: 'LoadSymptoms', _0: a};
-};
+var _user$project$Model$LoadSymptoms = F2(
+	function (a, b) {
+		return {ctor: 'LoadSymptoms', _0: a, _1: b};
+	});
 var _user$project$Model$SubBodyLocations = function (a) {
 	return {ctor: 'SubBodyLocations', _0: a};
 };
-var _user$project$Model$LoadSubBodyLocations = function (a) {
-	return {ctor: 'LoadSubBodyLocations', _0: a};
-};
+var _user$project$Model$LoadSubBodyLocations = F2(
+	function (a, b) {
+		return {ctor: 'LoadSubBodyLocations', _0: a, _1: b};
+	});
 var _user$project$Model$BodyLocations = function (a) {
 	return {ctor: 'BodyLocations', _0: a};
 };
-var _user$project$Model$LoadBodyLocations = {ctor: 'LoadBodyLocations'};
+var _user$project$Model$LoadBodyLocations = function (a) {
+	return {ctor: 'LoadBodyLocations', _0: a};
+};
 var _user$project$Model$Token = function (a) {
 	return {ctor: 'Token', _0: a};
 };

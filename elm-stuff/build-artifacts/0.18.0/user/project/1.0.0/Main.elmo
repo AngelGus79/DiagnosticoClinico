@@ -133,7 +133,11 @@ var _user$project$Main$update = F2(
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{
-							selectedSymptoms: {ctor: '[]'}
+							selectedSymptoms: {ctor: '[]'},
+							selectedSymptomsS: {ctor: '[]'},
+							part: '----',
+							subpart: '----',
+							selectedTab: 0
 						}),
 					_1: A2(
 						_elm_lang$http$Http$send,
@@ -176,7 +180,8 @@ var _user$project$Main$update = F2(
 						model,
 						{
 							selectedSymptoms: {ctor: '[]'},
-							selectedTab: 1
+							selectedTab: 1,
+							part: _p0._1
 						}),
 					_1: A2(
 						_elm_lang$http$Http$send,
@@ -222,7 +227,8 @@ var _user$project$Main$update = F2(
 						model,
 						{
 							selectedSymptoms: {ctor: '[]'},
-							selectedTab: 2
+							selectedTab: 2,
+							subpart: _p0._1
 						}),
 					_1: A2(
 						_elm_lang$http$Http$send,
@@ -255,6 +261,7 @@ var _user$project$Main$update = F2(
 					};
 				}
 			case 'SelectSymptom':
+				var _p1 = _p0._1;
 				var idSelected = _p0._0;
 				return A2(_elm_lang$core$List$member, idSelected, model.selectedSymptoms) ? {
 					ctor: '_Tuple2',
@@ -266,7 +273,13 @@ var _user$project$Main$update = F2(
 								function (x) {
 									return !_elm_lang$core$Native_Utils.eq(x, idSelected);
 								},
-								model.selectedSymptoms)
+								model.selectedSymptoms),
+							selectedSymptomsS: A2(
+								_elm_lang$core$List$filter,
+								function (x) {
+									return !_elm_lang$core$Native_Utils.eq(x, _p1);
+								},
+								model.selectedSymptomsS)
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				} : {
@@ -274,7 +287,8 @@ var _user$project$Main$update = F2(
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{
-							selectedSymptoms: {ctor: '::', _0: idSelected, _1: model.selectedSymptoms}
+							selectedSymptoms: {ctor: '::', _0: idSelected, _1: model.selectedSymptoms},
+							selectedSymptomsS: {ctor: '::', _0: _p1, _1: model.selectedSymptomsS}
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
@@ -286,7 +300,9 @@ var _user$project$Main$update = F2(
 					A2(_elm_lang$core$Basics_ops['++'], sSymptoms, '&gender=Male&year_of_birth=1988'));
 				return {
 					ctor: '_Tuple2',
-					_0: model,
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{selectedTab: 3}),
 					_1: A2(
 						_elm_lang$http$Http$send,
 						_user$project$Model$Diagnosis,
@@ -315,22 +331,23 @@ var _user$project$Main$update = F2(
 			case 'SelectTab':
 				return {
 					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{selectedTab: 0}),
-					_1: _elm_lang$core$Platform_Cmd$none
+					_0: model,
+					_1: A2(
+						_elm_lang$http$Http$send,
+						_user$project$Model$Token,
+						_user$project$Main$getProtectedQuote(model))
 				};
 			case 'Seleccionar':
-				var _p3 = _p0._1;
-				var _p1 = A2(_elm_lang$core$Debug$log, 'seleccionados:', _p0._0);
-				var _p2 = _p3;
-				switch (_p2) {
+				var _p4 = _p0._1;
+				var _p2 = A2(_elm_lang$core$Debug$log, 'seleccionados:', _p0._0);
+				var _p3 = _p4;
+				switch (_p3) {
 					case 2:
 						return {
 							ctor: '_Tuple2',
 							_0: _elm_lang$core$Native_Utils.update(
 								model,
-								{selectedTab: _p3}),
+								{selectedTab: _p4}),
 							_1: _elm_lang$core$Platform_Cmd$none
 						};
 					case 3:
@@ -338,7 +355,7 @@ var _user$project$Main$update = F2(
 							ctor: '_Tuple2',
 							_0: _elm_lang$core$Native_Utils.update(
 								model,
-								{selectedTab: _p3}),
+								{selectedTab: _p4}),
 							_1: _elm_lang$core$Platform_Cmd$none
 						};
 					default:
@@ -346,7 +363,7 @@ var _user$project$Main$update = F2(
 							ctor: '_Tuple2',
 							_0: _elm_lang$core$Native_Utils.update(
 								model,
-								{selectedTab: _p3}),
+								{selectedTab: _p4}),
 							_1: _elm_lang$core$Platform_Cmd$none
 						};
 				}
