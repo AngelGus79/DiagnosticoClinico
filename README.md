@@ -21,7 +21,7 @@ Para instalar y hacer uso de esta aplicación siga los siguientes pasos:
 ```sh
 $ git clone https://github.com/AngelGus79/DiagnosticoClinico
 ```
-3. Instalar los paquetes
+3. Instalar los paquetes.
 ```sh
 $ cd DiagnosticoClinico
 $ elm-package install
@@ -29,8 +29,25 @@ $ elm-package install
 4. Iniciar elm reactor.
 ```sh
 $ elm reactor
+``` 
+5. Se necesita crear una cuenta en la página de [apimedic.com][api medic] 
+6. En el archivo auth.elm poner los siguientes datos.
+> * El correo registrado en la cuenta de [apimedic.com][api medic] como en el ejemplo:
+
 ```
-5. Por último iniciar la aplicación en tu [navegador] [app init].
+username : String 
+username =
+    "example@example.com"
+```
+
+> * El token resultado de utilizar el comando `python3 buildHmac.py` dandole de contraseña la enviada al correo al crear la cuenta:
+
+```
+password : String
+password =
+    "TOKEN_HMAC"
+```
+7. Por último iniciar la aplicación en tu [navegador][app init].
 
    [elm installer]: <http://elm-lang.org:1234/install>
    [nri Pipeline]: <https://github.com/NoRedInk/elm-decode-pipeline>
@@ -38,4 +55,5 @@ $ elm reactor
    [elm core]: <https://github.com/elm-lang/core>
    [elm html]: <https://github.com/elm-lang/html>
    [elm http]: <https://github.com/elm-lang/http>
+   [api medic]: <http://apimedic.com>
    [app init]: <http://localhost:8000/Update.elm>
