@@ -4,6 +4,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Material
+import Regex
 import Material.Button as Button
 import Material.Color as Color
 import Material.Dialog as Dialog
@@ -15,6 +16,8 @@ import Material.Options as Options exposing (css)
 import Material.Scheme
 import Material.Toggles as Toggles
 import Model exposing (..)
+import Material.Textfield as Textfield
+import Material.Table as Table
 
 
 type alias Mdl =
@@ -28,7 +31,7 @@ view model =
             model.mdl
             [ Layout.fixedDrawer
             , Layout.fixedHeader
-            , Layout.onSelectTab LoadBodyLocations
+            , Layout.onSelectTab Seleccionar
             , Layout.selectedTab model.selectedTab
             ]
             { header = [ div [] [ h1 [] [ text "Programa médico" ] ] ]
@@ -38,37 +41,77 @@ view model =
                     ]
                 , div [] [ viewPartesSel model ]
                 ]
-            , tabs = ( [ text "Parte general del cuerpo", text "Parte específica del cuerpo", text "Síntomas", text "Sugerencia" ], [] )
+            , tabs = ( [ text "Datos", text "Parte general del cuerpo", text "Parte específica del cuerpo", text "Síntomas", text "Sugerencia" ], [] )
             , main = [
-                   div [] (sessionOrBody model)
+                   div [] [(viewBody model)]
                   ]
             }
-
-sessionOrBody : Model -> List (Html Msg)
-sessionOrBody model = 
-  case model.bodyLocations of
-    [] -> [
-            Html.button [onClick (LoadBodyLocations 0)] [text "Iniciar"]
-          ]
-    _ -> [viewBody model]
 
 viewBody : Model -> Html Msg
 viewBody model =
     case model.selectedTab of
         0 ->
+            viewData model
+        1 ->
             viewBodyLocations model
 
-        1 ->
+        2 ->
             viewBodySubLocations model
 
-        2 ->
+        3 ->
             viewSymptoms model
 
-        3 ->
-          div [] (List.append (List.map viewDiagnosis model.diagnosis) [(text model.errorMsg)])
+        4 ->
+          div [style [ ( "margin", "0 auto" ) ]] 
+          [ h3 [] [text "Lista de padecimientos"]
+          , Table.table []
+            [ Table.thead []
+              [ Table.tr []
+                [ Table.th [] [ text "Posible padecimiento" ]
+                , Table.th [ ] [ text "Presición" ]
+                ]
+              ]
+            , Table.tbody [] 
+                  (List.map viewDiagnosis model.diagnosis)
+            ]
+          ]
 
+--(List.append (List.map viewDiagnosis model.diagnosis) [(text model.errorMsg)])
         _ ->
             text "404"
+
+viewData : Model -> Html Msg
+viewData model = div []
+          [ Textfield.render Mdl [0] model.mdl
+            [ Textfield.label "Escribe tu nombre"
+            , Textfield.floatingLabel
+            , Options.onInput (ChangeName )
+            ] []
+--          , Textfield.render Mdl [0] model.mdl
+--            [ Textfield.label "Escribe tu edad"
+--            , Textfield.floatingLabel
+--            , Textfield.value (toString model.age)
+--            , Options.onInput (String.toInt >> ChangeAge )
+--            ] []
+          , Textfield.render Mdl [4] model.mdl
+            [ Textfield.label "Escribe tu edad"
+            , Textfield.floatingLabel
+            , Options.onInput ChangeAge
+            , Textfield.error ("No es un numero")
+                |> Options.when (not <| match model.age (Regex.regex "[0-9]*"))
+            ]
+            []
+          , Button.render Mdl [0] model.mdl
+            [ Button.raised
+            , Button.ripple
+            , Options.onClick (LoadBodyLocations 1)
+            ]
+            [ text "Fetch new" ]
+          ]
+match : String -> Regex.Regex -> Bool
+match str rx =
+  Regex.find Regex.All rx str
+    |> List.any (.match >> (==) str)
 
 viewBodyLocations : Model -> Html Msg
 viewBodyLocations model =
@@ -117,9 +160,6 @@ button partes tab =
             List.map2 toButton1 (List.map (\ x -> x.name) partes) (List.map (\ x -> x.id) partes)
 
 
-check : List String -> List Bool -> List (Html Msg)
-check partes selec =
-    List.map2 toButton4 partes selec
 
 
 toButton1 : String -> Int -> Html Msg
@@ -154,17 +194,6 @@ toButton3 cadena id =
         ]
         [ text cadena ]
 
-
-toButton4 : String -> Bool -> Html Msg
-toButton4 cadena sel =
-    Toggles.checkbox Mdl
-        [ 0 ]
-        model.mdl
-        [ Options.onToggle (Seleccionar cadena 4)
-        , Toggles.ripple
-        , Toggles.value sel
-        ]
-        [ text cadena ]
 
 
 viewPartesSel : Model -> Html Msg
@@ -204,9 +233,9 @@ viewSubpartes result =
 
 
 viewDiagnosis : General -> Html Msg
-viewDiagnosis result =
-    li []
-        [ text ("Probable padecimiento: " ++ result.issue.name ++ ", con presición del: " ++ toString result.issue.accuracy ++ "%")
-        ]
+viewDiagnosis result = Table.tr []
+                  [ Table.td [] [ text result.issue.name ]
+                  , Table.td [ Table.numeric ] [ text (toString result.issue.accuracy) ]
+                  ]
 
 

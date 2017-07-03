@@ -71,6 +71,13 @@ creaUrl model action =
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        ChangeName nam->
+            let
+                _ = Debug.log "Nombre " model.name
+            in
+            ({ model | name = nam}, Cmd.none)
+        ChangeAge age->
+            ({ model | age = age}, Cmd.none)
         GetToken ->
             ( { model | selectedSymptoms = [] }
             , Http.send Token (getProtectedQuote model)
@@ -96,7 +103,7 @@ update msg model =
                 , selectedSymptomsS = []
                 , part = "----"
                 , subpart = "----"
-                , selectedTab = 0 }
+                , selectedTab = 1 }
             , Http.send BodyLocations (getData (creaUrl model "body/locations"))
             )
 
@@ -111,7 +118,7 @@ update msg model =
                 path =
                     "body/locations/" ++ toString id
             in
-            ( { model | selectedSymptoms = [], selectedTab = 1 , part = cadena}
+            ( { model | selectedSymptoms = [], selectedTab = 2 , part = cadena}
             , Http.send SubBodyLocations (getData (creaUrl model path))
             )
 
@@ -128,7 +135,7 @@ update msg model =
                 path =
                     "symptoms/" ++ toString idSubLocation ++ "/Man"
             in
-            ( { model | selectedSymptoms = [], selectedTab = 2 ,subpart = cadena}, Http.send Symptoms (getData (creaUrl model path)) )
+            ( { model | selectedSymptoms = [], selectedTab = 3 ,subpart = cadena}, Http.send Symptoms (getData (creaUrl model path)) )
 
         Symptoms (Err err) ->
             ( { model | errorMsg = toString err, selectedSymptoms = [] }, Cmd.none )
@@ -156,7 +163,7 @@ update msg model =
                 path =
                     "diagnosis?symptoms=" ++ sSymptoms ++ "&gender=Male&year_of_birth=1988"
             in
-            ( {model| selectedTab = 3}, Http.send Diagnosis (getDiagnosisData (creaUrl model path)) )
+            ( {model| selectedTab = 4}, Http.send Diagnosis (getDiagnosisData (creaUrl model path)) )
 
         Diagnosis (Ok diagnosis) ->
             ( { model | diagnosis = diagnosis }, Cmd.none )
@@ -164,21 +171,11 @@ update msg model =
         Diagnosis (Err err) ->
              { model | errorMsg = toString err
              }  ! []
-        SelectTab num -> 
-            (model,  Http.send Token (getProtectedQuote model))
-        Seleccionar sel num ->
-            let
-                _ = Debug.log "seleccionados:" sel
-            in 
-            case num of 
-             {-   1 -> 
-                    ({model | selectedTab = num  }, Cmd.none ) -}
-                2 -> 
-                    ({model | selectedTab = num  }, Cmd.none )
-                3 -> 
-                    ({model | selectedTab = num  }, Cmd.none )
-                _ -> 
-                    ({model | selectedTab = num  }, Cmd.none )
+        Seleccionar num ->
+            if num < 4 then
+                    ({model | selectedTab = num, selectedSymptoms = [], selectedSymptomsS = []}, Cmd.none )
+            else
+                ({model | selectedTab = num }, Cmd.none )
         Mdl msg_ ->
             Material.update Mdl msg_ model
 
