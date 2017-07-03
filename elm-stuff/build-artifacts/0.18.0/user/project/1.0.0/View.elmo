@@ -461,114 +461,238 @@ var _user$project$View$match = F2(
 			},
 			A3(_elm_lang$core$Regex$find, _elm_lang$core$Regex$All, rx, str));
 	});
+var _user$project$View$isMale = function (sexo) {
+	return _elm_lang$core$Native_Utils.eq(sexo, 'Male') ? true : false;
+};
 var _user$project$View$viewData = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
 		{ctor: '[]'},
 		{
 			ctor: '::',
-			_0: A5(
-				_debois$elm_mdl$Material_Textfield$render,
-				_user$project$Model$Mdl,
+			_0: A2(
+				_debois$elm_mdl$Material_List$ul,
+				{ctor: '[]'},
 				{
 					ctor: '::',
-					_0: 0,
-					_1: {ctor: '[]'}
-				},
-				model.mdl,
-				{
-					ctor: '::',
-					_0: _debois$elm_mdl$Material_Textfield$label('Escribe tu nombre'),
-					_1: {
-						ctor: '::',
-						_0: _debois$elm_mdl$Material_Textfield$floatingLabel,
-						_1: {
-							ctor: '::',
-							_0: _debois$elm_mdl$Material_Options$onInput(_user$project$Model$ChangeName),
-							_1: {ctor: '[]'}
-						}
-					}
-				},
-				{ctor: '[]'}),
-			_1: {
-				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$br,
-					{ctor: '[]'},
-					{ctor: '[]'}),
-				_1: {
-					ctor: '::',
-					_0: A5(
-						_debois$elm_mdl$Material_Textfield$render,
-						_user$project$Model$Mdl,
+					_0: A2(
+						_debois$elm_mdl$Material_List$li,
+						{ctor: '[]'},
 						{
 							ctor: '::',
-							_0: 4,
-							_1: {ctor: '[]'}
-						},
-						model.mdl,
-						{
-							ctor: '::',
-							_0: _debois$elm_mdl$Material_Textfield$label('Año de nacimiento'),
-							_1: {
-								ctor: '::',
-								_0: _debois$elm_mdl$Material_Textfield$floatingLabel,
-								_1: {
-									ctor: '::',
-									_0: _debois$elm_mdl$Material_Options$onInput(_user$project$Model$ChangeAge),
-									_1: {
-										ctor: '::',
-										_0: A2(
-											_debois$elm_mdl$Material_Options$when,
-											!A2(
-												_user$project$View$match,
-												model.age,
-												_elm_lang$core$Regex$regex('[0-9]*')),
-											_debois$elm_mdl$Material_Textfield$error('No es un numero')),
-										_1: {ctor: '[]'}
-									}
-								}
-							}
-						},
-						{ctor: '[]'}),
-					_1: {
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$br,
-							{ctor: '[]'},
-							{ctor: '[]'}),
-						_1: {
-							ctor: '::',
-							_0: A5(
-								_debois$elm_mdl$Material_Button$render,
-								_user$project$Model$Mdl,
+							_0: A2(
+								_debois$elm_mdl$Material_List$content,
+								{ctor: '[]'},
 								{
 									ctor: '::',
-									_0: 0,
-									_1: {ctor: '[]'}
-								},
-								model.mdl,
-								{
-									ctor: '::',
-									_0: _debois$elm_mdl$Material_Button$raised,
-									_1: {
-										ctor: '::',
-										_0: _debois$elm_mdl$Material_Button$ripple,
-										_1: {
+									_0: A5(
+										_debois$elm_mdl$Material_Textfield$render,
+										_user$project$Model$Mdl,
+										{
 											ctor: '::',
-											_0: _debois$elm_mdl$Material_Options$onClick(
-												_user$project$Model$LoadBodyLocations(1)),
+											_0: 0,
 											_1: {ctor: '[]'}
-										}
-									}
-								},
-								{
-									ctor: '::',
-									_0: _elm_lang$html$Html$text('Iniciar Consulta'),
+										},
+										model.mdl,
+										{
+											ctor: '::',
+											_0: _debois$elm_mdl$Material_Textfield$label('Escribe tu nombre'),
+											_1: {
+												ctor: '::',
+												_0: _debois$elm_mdl$Material_Textfield$floatingLabel,
+												_1: {
+													ctor: '::',
+													_0: _debois$elm_mdl$Material_Options$onInput(_user$project$Model$ChangeName),
+													_1: {ctor: '[]'}
+												}
+											}
+										},
+										{ctor: '[]'}),
 									_1: {ctor: '[]'}
 								}),
 							_1: {ctor: '[]'}
-						}
+						}),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_debois$elm_mdl$Material_List$li,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: A2(
+							_debois$elm_mdl$Material_List$content,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: A5(
+									_debois$elm_mdl$Material_Textfield$render,
+									_user$project$Model$Mdl,
+									{
+										ctor: '::',
+										_0: 1,
+										_1: {ctor: '[]'}
+									},
+									model.mdl,
+									{
+										ctor: '::',
+										_0: _debois$elm_mdl$Material_Textfield$label('Año de nacimiento'),
+										_1: {
+											ctor: '::',
+											_0: _debois$elm_mdl$Material_Textfield$floatingLabel,
+											_1: {
+												ctor: '::',
+												_0: _debois$elm_mdl$Material_Options$onInput(_user$project$Model$ChangeAge),
+												_1: {
+													ctor: '::',
+													_0: A2(
+														_debois$elm_mdl$Material_Options$when,
+														!A2(
+															_user$project$View$match,
+															model.age,
+															_elm_lang$core$Regex$regex('[0-9]*')),
+														_debois$elm_mdl$Material_Textfield$error('No es un numero')),
+													_1: {ctor: '[]'}
+												}
+											}
+										}
+									},
+									{ctor: '[]'}),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_debois$elm_mdl$Material_List$li,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: A2(
+								_debois$elm_mdl$Material_List$content,
+								{ctor: '[]'},
+								{
+									ctor: '::',
+									_0: A5(
+										_debois$elm_mdl$Material_Toggles$radio,
+										_user$project$Model$Mdl,
+										{
+											ctor: '::',
+											_0: 0,
+											_1: {ctor: '[]'}
+										},
+										model.mdl,
+										{
+											ctor: '::',
+											_0: _debois$elm_mdl$Material_Toggles$value(
+												_user$project$View$isMale(model.sexo)),
+											_1: {
+												ctor: '::',
+												_0: _debois$elm_mdl$Material_Toggles$group('sexo'),
+												_1: {
+													ctor: '::',
+													_0: _debois$elm_mdl$Material_Toggles$ripple,
+													_1: {
+														ctor: '::',
+														_0: _debois$elm_mdl$Material_Options$onToggle(
+															_user$project$Model$RadioMsg('Male')),
+														_1: {ctor: '[]'}
+													}
+												}
+											}
+										},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('Hombre    '),
+											_1: {ctor: '[]'}
+										}),
+									_1: {
+										ctor: '::',
+										_0: A5(
+											_debois$elm_mdl$Material_Toggles$radio,
+											_user$project$Model$Mdl,
+											{
+												ctor: '::',
+												_0: 1,
+												_1: {ctor: '[]'}
+											},
+											model.mdl,
+											{
+												ctor: '::',
+												_0: _debois$elm_mdl$Material_Toggles$value(
+													!_user$project$View$isMale(model.sexo)),
+												_1: {
+													ctor: '::',
+													_0: _debois$elm_mdl$Material_Toggles$group('sexo'),
+													_1: {
+														ctor: '::',
+														_0: _debois$elm_mdl$Material_Toggles$ripple,
+														_1: {
+															ctor: '::',
+															_0: _debois$elm_mdl$Material_Options$onToggle(
+																_user$project$Model$RadioMsg('Female')),
+															_1: {ctor: '[]'}
+														}
+													}
+												}
+											},
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text('Mujer'),
+												_1: {ctor: '[]'}
+											}),
+										_1: {ctor: '[]'}
+									}
+								}),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_debois$elm_mdl$Material_List$li,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: A2(
+									_debois$elm_mdl$Material_List$content,
+									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: A5(
+											_debois$elm_mdl$Material_Button$render,
+											_user$project$Model$Mdl,
+											{
+												ctor: '::',
+												_0: 0,
+												_1: {ctor: '[]'}
+											},
+											model.mdl,
+											{
+												ctor: '::',
+												_0: _debois$elm_mdl$Material_Button$raised,
+												_1: {
+													ctor: '::',
+													_0: _debois$elm_mdl$Material_Button$ripple,
+													_1: {
+														ctor: '::',
+														_0: _debois$elm_mdl$Material_Options$onClick(
+															_user$project$Model$LoadBodyLocations(1)),
+														_1: {ctor: '[]'}
+													}
+												}
+											},
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text('Iniciar consulta'),
+												_1: {ctor: '[]'}
+											}),
+										_1: {ctor: '[]'}
+									}),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
 					}
 				}
 			}

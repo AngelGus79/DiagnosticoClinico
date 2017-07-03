@@ -114,7 +114,7 @@ viewData model = div []
                   , Toggles.ripple
                   , Options.onToggle (RadioMsg "Male")
                   ]
-                  [ text "Hombre    " ]
+                  [ text "Hombre" ]
                   )
                 , (Toggles.radio Mdl [1] model.mdl
                   [ Toggles.value (not(isMale model.sexo))
