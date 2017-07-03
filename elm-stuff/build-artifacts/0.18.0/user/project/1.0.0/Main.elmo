@@ -86,6 +86,23 @@ var _user$project$Main$update = F2(
 	function (msg, model) {
 		var _p0 = msg;
 		switch (_p0.ctor) {
+			case 'ChangeName':
+				var _p1 = A2(_elm_lang$core$Debug$log, 'Nombre ', model.name);
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{name: _p0._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'ChangeAge':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{age: _p0._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
 			case 'GetToken':
 				return {
 					ctor: '_Tuple2',
@@ -137,7 +154,7 @@ var _user$project$Main$update = F2(
 							selectedSymptomsS: {ctor: '[]'},
 							part: '----',
 							subpart: '----',
-							selectedTab: 0
+							selectedTab: 1
 						}),
 					_1: A2(
 						_elm_lang$http$Http$send,
@@ -180,7 +197,7 @@ var _user$project$Main$update = F2(
 						model,
 						{
 							selectedSymptoms: {ctor: '[]'},
-							selectedTab: 1,
+							selectedTab: 2,
 							part: _p0._1
 						}),
 					_1: A2(
@@ -227,7 +244,7 @@ var _user$project$Main$update = F2(
 						model,
 						{
 							selectedSymptoms: {ctor: '[]'},
-							selectedTab: 2,
+							selectedTab: 3,
 							subpart: _p0._1
 						}),
 					_1: A2(
@@ -261,7 +278,7 @@ var _user$project$Main$update = F2(
 					};
 				}
 			case 'SelectSymptom':
-				var _p1 = _p0._1;
+				var _p2 = _p0._1;
 				var idSelected = _p0._0;
 				return A2(_elm_lang$core$List$member, idSelected, model.selectedSymptoms) ? {
 					ctor: '_Tuple2',
@@ -277,7 +294,7 @@ var _user$project$Main$update = F2(
 							selectedSymptomsS: A2(
 								_elm_lang$core$List$filter,
 								function (x) {
-									return !_elm_lang$core$Native_Utils.eq(x, _p1);
+									return !_elm_lang$core$Native_Utils.eq(x, _p2);
 								},
 								model.selectedSymptomsS)
 						}),
@@ -288,7 +305,7 @@ var _user$project$Main$update = F2(
 						model,
 						{
 							selectedSymptoms: {ctor: '::', _0: idSelected, _1: model.selectedSymptoms},
-							selectedSymptomsS: {ctor: '::', _0: _p1, _1: model.selectedSymptomsS}
+							selectedSymptomsS: {ctor: '::', _0: _p2, _1: model.selectedSymptomsS}
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
@@ -302,7 +319,7 @@ var _user$project$Main$update = F2(
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
-						{selectedTab: 3}),
+						{selectedTab: 4}),
 					_1: A2(
 						_elm_lang$http$Http$send,
 						_user$project$Model$Diagnosis,
@@ -328,45 +345,25 @@ var _user$project$Main$update = F2(
 							}),
 						{ctor: '[]'});
 				}
-			case 'SelectTab':
-				return {
-					ctor: '_Tuple2',
-					_0: model,
-					_1: A2(
-						_elm_lang$http$Http$send,
-						_user$project$Model$Token,
-						_user$project$Main$getProtectedQuote(model))
-				};
 			case 'Seleccionar':
-				var _p4 = _p0._1;
-				var _p2 = A2(_elm_lang$core$Debug$log, 'seleccionados:', _p0._0);
-				var _p3 = _p4;
-				switch (_p3) {
-					case 2:
-						return {
-							ctor: '_Tuple2',
-							_0: _elm_lang$core$Native_Utils.update(
-								model,
-								{selectedTab: _p4}),
-							_1: _elm_lang$core$Platform_Cmd$none
-						};
-					case 3:
-						return {
-							ctor: '_Tuple2',
-							_0: _elm_lang$core$Native_Utils.update(
-								model,
-								{selectedTab: _p4}),
-							_1: _elm_lang$core$Platform_Cmd$none
-						};
-					default:
-						return {
-							ctor: '_Tuple2',
-							_0: _elm_lang$core$Native_Utils.update(
-								model,
-								{selectedTab: _p4}),
-							_1: _elm_lang$core$Platform_Cmd$none
-						};
-				}
+				var _p3 = _p0._0;
+				return (_elm_lang$core$Native_Utils.cmp(_p3, 4) < 0) ? {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							selectedTab: _p3,
+							selectedSymptoms: {ctor: '[]'},
+							selectedSymptomsS: {ctor: '[]'}
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				} : {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{selectedTab: _p3}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
 			default:
 				return A3(_debois$elm_mdl$Material$update, _user$project$Model$Mdl, _p0._0, model);
 		}

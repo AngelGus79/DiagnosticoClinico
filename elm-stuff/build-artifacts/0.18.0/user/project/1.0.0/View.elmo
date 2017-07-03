@@ -1,24 +1,52 @@
 var _user$project$View$viewDiagnosis = function (result) {
 	return A2(
-		_elm_lang$html$Html$li,
+		_debois$elm_mdl$Material_Table$tr,
 		{ctor: '[]'},
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html$text(
-				A2(
-					_elm_lang$core$Basics_ops['++'],
-					'Probable padecimiento: ',
-					A2(
-						_elm_lang$core$Basics_ops['++'],
-						result.issue.name,
-						A2(
-							_elm_lang$core$Basics_ops['++'],
-							', con presición del: ',
-							A2(
-								_elm_lang$core$Basics_ops['++'],
-								_elm_lang$core$Basics$toString(result.issue.accuracy),
-								'%'))))),
-			_1: {ctor: '[]'}
+			_0: A2(
+				_debois$elm_mdl$Material_Table$td,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$h4,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(result.issue.name),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_debois$elm_mdl$Material_Table$td,
+					{
+						ctor: '::',
+						_0: _debois$elm_mdl$Material_Table$numeric,
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$h4,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text(
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										_elm_lang$core$Basics$toString(
+											_elm_lang$core$Basics$round(result.issue.accuracy)),
+										' %')),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
 		});
 };
 var _user$project$View$viewSubpartes = function (result) {
@@ -111,7 +139,7 @@ var _user$project$View$viewPartesSel = function (model) {
 		{
 			ctor: '::',
 			_0: A2(
-				_elm_lang$html$Html$h4,
+				_elm_lang$html$Html$h6,
 				{ctor: '[]'},
 				{
 					ctor: '::',
@@ -163,7 +191,7 @@ var _user$project$View$viewPartesSel = function (model) {
 				_1: {
 					ctor: '::',
 					_0: A2(
-						_elm_lang$html$Html$h4,
+						_elm_lang$html$Html$h6,
 						{ctor: '[]'},
 						{
 							ctor: '::',
@@ -182,37 +210,6 @@ var _user$project$View$viewPartesSel = function (model) {
 			}
 		});
 };
-var _user$project$View$toButton4 = F2(
-	function (cadena, sel) {
-		return A5(
-			_debois$elm_mdl$Material_Toggles$checkbox,
-			_user$project$Model$Mdl,
-			{
-				ctor: '::',
-				_0: 0,
-				_1: {ctor: '[]'}
-			},
-			_user$project$Model$model.mdl,
-			{
-				ctor: '::',
-				_0: _debois$elm_mdl$Material_Options$onToggle(
-					A2(_user$project$Model$Seleccionar, cadena, 4)),
-				_1: {
-					ctor: '::',
-					_0: _debois$elm_mdl$Material_Toggles$ripple,
-					_1: {
-						ctor: '::',
-						_0: _debois$elm_mdl$Material_Toggles$value(sel),
-						_1: {ctor: '[]'}
-					}
-				}
-			},
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html$text(cadena),
-				_1: {ctor: '[]'}
-			});
-	});
 var _user$project$View$toButton3 = F2(
 	function (cadena, id) {
 		return A5(
@@ -293,10 +290,6 @@ var _user$project$View$toButton1 = F2(
 				_0: _elm_lang$html$Html$text(cadena),
 				_1: {ctor: '[]'}
 			});
-	});
-var _user$project$View$check = F2(
-	function (partes, selec) {
-		return A3(_elm_lang$core$List$map2, _user$project$View$toButton4, partes, selec);
 	});
 var _user$project$View$button = F2(
 	function (partes, tab) {
@@ -398,7 +391,7 @@ var _user$project$View$botonEnviar = {
 		},
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html$text('Enviar'),
+			_0: _elm_lang$html$Html$text('Diagnosticar'),
 			_1: {ctor: '[]'}
 		}),
 	_1: {ctor: '[]'}
@@ -451,57 +444,225 @@ var _user$project$View$viewBodyLocations = function (model) {
 		},
 		A2(_user$project$View$button, model.bodyLocations, 1));
 };
-var _user$project$View$viewBody = function (model) {
-	var _p1 = model.selectedTab;
-	switch (_p1) {
-		case 0:
-			return _user$project$View$viewBodyLocations(model);
-		case 1:
-			return _user$project$View$viewBodySubLocations(model);
-		case 2:
-			return _user$project$View$viewSymptoms(model);
-		case 3:
-			return A2(
-				_elm_lang$html$Html$div,
-				{ctor: '[]'},
-				A2(
-					_elm_lang$core$List$append,
-					A2(_elm_lang$core$List$map, _user$project$View$viewDiagnosis, model.diagnosis),
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html$text(model.errorMsg),
-						_1: {ctor: '[]'}
-					}));
-		default:
-			return _elm_lang$html$Html$text('404');
-	}
-};
-var _user$project$View$sessionOrBody = function (model) {
-	var _p2 = model.bodyLocations;
-	if (_p2.ctor === '[]') {
-		return {
+var _user$project$View$match = F2(
+	function (str, rx) {
+		return A2(
+			_elm_lang$core$List$any,
+			function (_p1) {
+				return A2(
+					F2(
+						function (x, y) {
+							return _elm_lang$core$Native_Utils.eq(x, y);
+						}),
+					str,
+					function (_) {
+						return _.match;
+					}(_p1));
+			},
+			A3(_elm_lang$core$Regex$find, _elm_lang$core$Regex$All, rx, str));
+	});
+var _user$project$View$viewData = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
 			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$button,
+			_0: A5(
+				_debois$elm_mdl$Material_Textfield$render,
+				_user$project$Model$Mdl,
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html_Events$onClick(
-						_user$project$Model$LoadBodyLocations(0)),
+					_0: 0,
+					_1: {ctor: '[]'}
+				},
+				model.mdl,
+				{
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Textfield$label('Escribe tu nombre'),
+					_1: {
+						ctor: '::',
+						_0: _debois$elm_mdl$Material_Textfield$floatingLabel,
+						_1: {
+							ctor: '::',
+							_0: _debois$elm_mdl$Material_Options$onInput(_user$project$Model$ChangeName),
+							_1: {ctor: '[]'}
+						}
+					}
+				},
+				{ctor: '[]'}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$br,
+					{ctor: '[]'},
+					{ctor: '[]'}),
+				_1: {
+					ctor: '::',
+					_0: A5(
+						_debois$elm_mdl$Material_Textfield$render,
+						_user$project$Model$Mdl,
+						{
+							ctor: '::',
+							_0: 4,
+							_1: {ctor: '[]'}
+						},
+						model.mdl,
+						{
+							ctor: '::',
+							_0: _debois$elm_mdl$Material_Textfield$label('Año de nacimiento'),
+							_1: {
+								ctor: '::',
+								_0: _debois$elm_mdl$Material_Textfield$floatingLabel,
+								_1: {
+									ctor: '::',
+									_0: _debois$elm_mdl$Material_Options$onInput(_user$project$Model$ChangeAge),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_debois$elm_mdl$Material_Options$when,
+											!A2(
+												_user$project$View$match,
+												model.age,
+												_elm_lang$core$Regex$regex('[0-9]*')),
+											_debois$elm_mdl$Material_Textfield$error('No es un numero')),
+										_1: {ctor: '[]'}
+									}
+								}
+							}
+						},
+						{ctor: '[]'}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$br,
+							{ctor: '[]'},
+							{ctor: '[]'}),
+						_1: {
+							ctor: '::',
+							_0: A5(
+								_debois$elm_mdl$Material_Button$render,
+								_user$project$Model$Mdl,
+								{
+									ctor: '::',
+									_0: 0,
+									_1: {ctor: '[]'}
+								},
+								model.mdl,
+								{
+									ctor: '::',
+									_0: _debois$elm_mdl$Material_Button$raised,
+									_1: {
+										ctor: '::',
+										_0: _debois$elm_mdl$Material_Button$ripple,
+										_1: {
+											ctor: '::',
+											_0: _debois$elm_mdl$Material_Options$onClick(
+												_user$project$Model$LoadBodyLocations(1)),
+											_1: {ctor: '[]'}
+										}
+									}
+								},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text('Iniciar Consulta'),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			}
+		});
+};
+var _user$project$View$viewBody = function (model) {
+	var _p2 = model.selectedTab;
+	switch (_p2) {
+		case 0:
+			return _user$project$View$viewData(model);
+		case 1:
+			return _user$project$View$viewBodyLocations(model);
+		case 2:
+			return _user$project$View$viewBodySubLocations(model);
+		case 3:
+			return _user$project$View$viewSymptoms(model);
+		case 4:
+			return A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$style(
+						{
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'margin', _1: '0 auto'},
+							_1: {ctor: '[]'}
+						}),
 					_1: {ctor: '[]'}
 				},
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html$text('Iniciar'),
-					_1: {ctor: '[]'}
-				}),
-			_1: {ctor: '[]'}
-		};
-	} else {
-		return {
-			ctor: '::',
-			_0: _user$project$View$viewBody(model),
-			_1: {ctor: '[]'}
-		};
+					_0: A2(
+						_elm_lang$html$Html$h6,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(
+								A2(_elm_lang$core$Basics_ops['++'], model.name, ', usted probablemente padece: ')),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_debois$elm_mdl$Material_Table$table,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: A2(
+									_debois$elm_mdl$Material_Table$thead,
+									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: A2(
+											_debois$elm_mdl$Material_Table$tr,
+											{ctor: '[]'},
+											{
+												ctor: '::',
+												_0: A2(
+													_debois$elm_mdl$Material_Table$th,
+													{ctor: '[]'},
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html$text('Posible padecimiento'),
+														_1: {ctor: '[]'}
+													}),
+												_1: {
+													ctor: '::',
+													_0: A2(
+														_debois$elm_mdl$Material_Table$th,
+														{ctor: '[]'},
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html$text('Precisión'),
+															_1: {ctor: '[]'}
+														}),
+													_1: {ctor: '[]'}
+												}
+											}),
+										_1: {ctor: '[]'}
+									}),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_debois$elm_mdl$Material_Table$tbody,
+										{ctor: '[]'},
+										A2(_elm_lang$core$List$map, _user$project$View$viewDiagnosis, model.diagnosis)),
+									_1: {ctor: '[]'}
+								}
+							}),
+						_1: {ctor: '[]'}
+					}
+				});
+		default:
+			return _elm_lang$html$Html$text('404');
 	}
 };
 var _user$project$View$view = function (model) {
@@ -521,7 +682,7 @@ var _user$project$View$view = function (model) {
 					_0: _debois$elm_mdl$Material_Layout$fixedHeader,
 					_1: {
 						ctor: '::',
-						_0: _debois$elm_mdl$Material_Layout$onSelectTab(_user$project$Model$LoadBodyLocations),
+						_0: _debois$elm_mdl$Material_Layout$onSelectTab(_user$project$Model$Seleccionar),
 						_1: {
 							ctor: '::',
 							_0: _debois$elm_mdl$Material_Layout$selectedTab(model.selectedTab),
@@ -539,11 +700,11 @@ var _user$project$View$view = function (model) {
 						{
 							ctor: '::',
 							_0: A2(
-								_elm_lang$html$Html$h1,
+								_elm_lang$html$Html$h2,
 								{ctor: '[]'},
 								{
 									ctor: '::',
-									_0: _elm_lang$html$Html$text('Programa médico'),
+									_0: _elm_lang$html$Html$text('Mi médico de cabecera'),
 									_1: {ctor: '[]'}
 								}),
 							_1: {ctor: '[]'}
@@ -561,7 +722,7 @@ var _user$project$View$view = function (model) {
 								_elm_lang$html$Html$img,
 								{
 									ctor: '::',
-									_0: _elm_lang$html$Html_Attributes$src('https://getmdl.io/templates/dashboard/images/user.jpg'),
+									_0: _elm_lang$html$Html_Attributes$src('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4XbGu5kVQ8bPMB4eD9_01Xw1Rt4cl-U74FhtL3UtKdE_Y6gkPYg'),
 									_1: {ctor: '[]'}
 								},
 								{ctor: '[]'}),
@@ -584,17 +745,21 @@ var _user$project$View$view = function (model) {
 					ctor: '_Tuple2',
 					_0: {
 						ctor: '::',
-						_0: _elm_lang$html$Html$text('Parte general del cuerpo'),
+						_0: _elm_lang$html$Html$text('Datos personales'),
 						_1: {
 							ctor: '::',
-							_0: _elm_lang$html$Html$text('Parte específica del cuerpo'),
+							_0: _elm_lang$html$Html$text('Parte del cuerpo'),
 							_1: {
 								ctor: '::',
-								_0: _elm_lang$html$Html$text('Síntomas'),
+								_0: _elm_lang$html$Html$text('Parte específica del cuerpo'),
 								_1: {
 									ctor: '::',
-									_0: _elm_lang$html$Html$text('Sugerencia'),
-									_1: {ctor: '[]'}
+									_0: _elm_lang$html$Html$text('Síntomas'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('Sugerencia'),
+										_1: {ctor: '[]'}
+									}
 								}
 							}
 						}
@@ -606,7 +771,11 @@ var _user$project$View$view = function (model) {
 					_0: A2(
 						_elm_lang$html$Html$div,
 						{ctor: '[]'},
-						_user$project$View$sessionOrBody(model)),
+						{
+							ctor: '::',
+							_0: _user$project$View$viewBody(model),
+							_1: {ctor: '[]'}
+						}),
 					_1: {ctor: '[]'}
 				}
 			}));

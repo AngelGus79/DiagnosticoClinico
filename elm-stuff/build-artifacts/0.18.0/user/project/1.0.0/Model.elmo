@@ -13,7 +13,9 @@ var _user$project$Model$model = {
 	action: '',
 	selectedTab: 0,
 	part: '----',
-	subpart: '----'
+	subpart: '----',
+	name: '',
+	age: ''
 };
 var _user$project$Model$Model = function (a) {
 	return function (b) {
@@ -29,7 +31,11 @@ var _user$project$Model$Model = function (a) {
 											return function (l) {
 												return function (m) {
 													return function (n) {
-														return {mdl: a, data: b, bodyLocations: c, bodySubLocations: d, symptoms: e, selectedSymptoms: f, selectedSymptomsS: g, diagnosis: h, token: i, errorMsg: j, action: k, selectedTab: l, part: m, subpart: n};
+														return function (o) {
+															return function (p) {
+																return {mdl: a, data: b, bodyLocations: c, bodySubLocations: d, symptoms: e, selectedSymptoms: f, selectedSymptomsS: g, diagnosis: h, token: i, errorMsg: j, action: k, selectedTab: l, part: m, subpart: n, name: o, age: p};
+															};
+														};
 													};
 												};
 											};
@@ -53,7 +59,7 @@ var _user$project$Model$init = {
 		{ctor: '[]'})(
 		{ctor: '[]'})(
 		{ctor: '[]'})(
-		{ctor: '[]'})('')('')('')(0)('')(''),
+		{ctor: '[]'})('')('')('')(0)('')('')('')(''),
 	_1: _elm_lang$core$Platform_Cmd$none
 };
 var _user$project$Model$Data = F2(
@@ -102,15 +108,17 @@ var _user$project$Model$diagnosisDecoder = A2(
 	_elm_lang$core$Json_Decode$at,
 	{ctor: '[]'},
 	_elm_lang$core$Json_Decode$list(_user$project$Model$diagnosisGeneralDecoder));
+var _user$project$Model$ChangeAge = function (a) {
+	return {ctor: 'ChangeAge', _0: a};
+};
+var _user$project$Model$ChangeName = function (a) {
+	return {ctor: 'ChangeName', _0: a};
+};
 var _user$project$Model$Mdl = function (a) {
 	return {ctor: 'Mdl', _0: a};
 };
-var _user$project$Model$Seleccionar = F2(
-	function (a, b) {
-		return {ctor: 'Seleccionar', _0: a, _1: b};
-	});
-var _user$project$Model$SelectTab = function (a) {
-	return {ctor: 'SelectTab', _0: a};
+var _user$project$Model$Seleccionar = function (a) {
+	return {ctor: 'Seleccionar', _0: a};
 };
 var _user$project$Model$Diagnosis = function (a) {
 	return {ctor: 'Diagnosis', _0: a};

@@ -34,14 +34,14 @@ view model =
             , Layout.onSelectTab Seleccionar
             , Layout.selectedTab model.selectedTab
             ]
-            { header = [ div [] [ h1 [] [ text "Programa médico" ] ] ]
+            { header = [ div [] [ h2 [] [ text "Mi médico de cabecera" ] ] ]
             , drawer =
                 [ div []
-                    [ img [ src "https://getmdl.io/templates/dashboard/images/user.jpg" ] []
+                    [ img [ src "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4XbGu5kVQ8bPMB4eD9_01Xw1Rt4cl-U74FhtL3UtKdE_Y6gkPYg" ] []
                     ]
                 , div [] [ viewPartesSel model ]
                 ]
-            , tabs = ( [ text "Datos", text "Parte general del cuerpo", text "Parte específica del cuerpo", text "Síntomas", text "Sugerencia" ], [] )
+            , tabs = ( [ text "Datos personales", text "Parte del cuerpo", text "Parte específica del cuerpo", text "Síntomas", text "Sugerencia" ], [] )
             , main = [
                    div [] [(viewBody model)]
                   ]
@@ -63,12 +63,12 @@ viewBody model =
 
         4 ->
           div [style [ ( "margin", "0 auto" ) ]] 
-          [ h3 [] [text "Lista de padecimientos"]
+          [ h6 [] [text (model.name ++ ", usted probablemente padece: ")]
           , Table.table []
             [ Table.thead []
               [ Table.tr []
                 [ Table.th [] [ text "Posible padecimiento" ]
-                , Table.th [ ] [ text "Presición" ]
+                , Table.th [ ] [ text "Precisión" ]
                 ]
               ]
             , Table.tbody [] 
@@ -82,11 +82,14 @@ viewBody model =
 
 viewData : Model -> Html Msg
 viewData model = div []
-          [ Textfield.render Mdl [0] model.mdl
+          [
+
+           Textfield.render Mdl [0] model.mdl
             [ Textfield.label "Escribe tu nombre"
             , Textfield.floatingLabel
             , Options.onInput (ChangeName )
             ] []
+            ,br [] []    
 --          , Textfield.render Mdl [0] model.mdl
 --            [ Textfield.label "Escribe tu edad"
 --            , Textfield.floatingLabel
@@ -94,19 +97,20 @@ viewData model = div []
 --            , Options.onInput (String.toInt >> ChangeAge )
 --            ] []
           , Textfield.render Mdl [4] model.mdl
-            [ Textfield.label "Escribe tu edad"
+            [ Textfield.label "Año de nacimiento"
             , Textfield.floatingLabel
             , Options.onInput ChangeAge
             , Textfield.error ("No es un numero")
                 |> Options.when (not <| match model.age (Regex.regex "[0-9]*"))
             ]
             []
+          , br [] []      
           , Button.render Mdl [0] model.mdl
             [ Button.raised
             , Button.ripple
             , Options.onClick (LoadBodyLocations 1)
             ]
-            [ text "Fetch new" ]
+            [ text "Iniciar Consulta" ]
           ]
 match : String -> Regex.Regex -> Bool
 match str rx =
@@ -142,12 +146,13 @@ botonEnviar = [Button.render Mdl
         , Button.colored
         , css "margin" "0 24px"
         ]
-        [ text "Enviar" ]]
+        [ text "Diagnosticar" ]]
 
 button : List Data -> Int -> List (Html Msg)
 button partes tab =
     case tab of
         1 ->
+            
             List.map2 toButton1 (List.map (\ x -> x.name) partes) (List.map (\ x -> x.id) partes)
 
         2 ->
@@ -170,7 +175,9 @@ toButton1  cadena id =
         [ Options.onClick (LoadSubBodyLocations id cadena)
         , css "margin" "0 24px"
         ]
-        [ text cadena ]
+        [
+       
+        text cadena ]
 
 
 toButton2 : String -> Int -> Html Msg
@@ -199,13 +206,13 @@ toButton3 cadena id =
 viewPartesSel : Model -> Html Msg
 viewPartesSel model =
     div []
-        [ h4 []
+        [ h6 [ ]
             [ text "Partes del cuerpo" ]
         , Lists.ul []
             [ Lists.li [] [ Lists.content [] [ text model.part ] ]
             , Lists.li [] [ Lists.content [] [ text model.subpart ] ]
             ]
-        , h4 []
+        , h6 []
             [ text "Síntomas" ]
         , Lists.ul []
             (List.map sintomas model.selectedSymptomsS)
@@ -234,8 +241,14 @@ viewSubpartes result =
 
 viewDiagnosis : General -> Html Msg
 viewDiagnosis result = Table.tr []
-                  [ Table.td [] [ text result.issue.name ]
-                  , Table.td [ Table.numeric ] [ text (toString result.issue.accuracy) ]
+                  [ Table.td []
+                        [
+                         h4 [] [ text result.issue.name]
+                        ]
+                  , Table.td [ Table.numeric ]
+                      [
+                       h4 [] [text ((toString (round result.issue.accuracy)) ++ " %"  )]
+                      ]
                   ]
 
 
