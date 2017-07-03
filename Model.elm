@@ -23,6 +23,7 @@ type alias Model =
     , subpart : String
     , name : String
     , age : String
+    , sexo : String
     }
 
 model : Model
@@ -43,12 +44,13 @@ model =   {
     , subpart = "----"
     , name = ""
     , age = ""
+    , sexo = "Male"
     }
        
     
 init : ( Model, Cmd Msg )
 init =
-    ( Model Material.model [] [] [] [] [] [] [] "" "" "" 0 "" "" "" ""
+    ( Model Material.model [] [] [] [] [] [] [] "" "" "" 0 "" "" "" "" ""
     , Cmd.none
     )
     
@@ -121,3 +123,4 @@ type Msg
     | Mdl (Material.Msg Msg)
     | ChangeName String
     | ChangeAge String
+    | RadioMsg String

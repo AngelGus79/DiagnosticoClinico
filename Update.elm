@@ -179,4 +179,7 @@ update msg model =
         Mdl msg_ ->
             Material.update Mdl msg_ model
 
+        RadioMsg s ->
+            ({model | sexo = s},Cmd.none)
+
 

@@ -81,33 +81,72 @@ viewBody model =
             text "404"
 
 viewData : Model -> Html Msg
-viewData model = div []
-          [ Textfield.render Mdl [0] model.mdl
-            [ Textfield.label "Escribe tu nombre"
-            , Textfield.floatingLabel
-            , Options.onInput (ChangeName )
-            ] []
---          , Textfield.render Mdl [0] model.mdl
---            [ Textfield.label "Escribe tu edad"
---            , Textfield.floatingLabel
---            , Textfield.value (toString model.age)
---            , Options.onInput (String.toInt >> ChangeAge )
---            ] []
-          , Textfield.render Mdl [4] model.mdl
-            [ Textfield.label "Escribe tu edad"
-            , Textfield.floatingLabel
-            , Options.onInput ChangeAge
-            , Textfield.error ("No es un numero")
-                |> Options.when (not <| match model.age (Regex.regex "[0-9]*"))
+viewData model = div [] 
+          [Lists.ul []
+            [ Lists.li []
+              [Lists.content []
+                [ (Textfield.render Mdl [0] model.mdl
+                  [ Textfield.label "Escribe tu nombre"
+                  , Textfield.floatingLabel
+                  , Options.onInput ChangeName 
+                  ] []
+                  )
+                ]
+              ]
             ]
-            []
-          , Button.render Mdl [0] model.mdl
-            [ Button.raised
-            , Button.ripple
-            , Options.onClick (LoadBodyLocations 1)
-            ]
-            [ text "Fetch new" ]
+          , Lists.li []
+              [Lists.content []
+                [ (Textfield.render Mdl [1] model.mdl
+                  [ Textfield.label "Escribe tu edad"
+                  , Textfield.floatingLabel
+                  , Options.onInput ChangeAge
+                  , Textfield.error ("No es un numero")
+                      |> Options.when (not <| match model.age (Regex.regex "[0-9]*"))
+                  ] []
+                  )
+                ]
+              ]
+          , Lists.li []
+              [Lists.content []
+                [ (Toggles.radio Mdl [0] model.mdl
+                  [ Toggles.value (isMale model.sexo)
+                  , Toggles.group "sexo"
+                  , Toggles.ripple
+                  , Options.onToggle (RadioMsg "Male")
+                  ]
+                  [ text "Hombre" ]
+                  )
+                , (Toggles.radio Mdl [1] model.mdl
+                  [ Toggles.value (not(isMale model.sexo))
+                  , Toggles.group "sexo"
+                  , Toggles.ripple
+                  , Options.onToggle (RadioMsg "Female")
+                  ]
+                  [ text "Mujer" ]
+                  )
+                ]
+              ]
+          , Lists.li []
+              [Lists.content []
+                [ (Button.render Mdl [0] model.mdl
+                  [ Button.raised
+                  , Button.ripple
+                  , Options.onClick (LoadBodyLocations 1)
+                  ]
+                  [ text "Iniciar consulta" ]
+                  )
+                ]
+              ]
+          
           ]
+
+isMale:  String -> Bool
+isMale sexo =
+        if sexo == "Male" then
+          True
+        else
+          False
+
 match : String -> Regex.Regex -> Bool
 match str rx =
   Regex.find Regex.All rx str
