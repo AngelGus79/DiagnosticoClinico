@@ -21,6 +21,8 @@ type alias Model =
     , selectedTab : Int
     , part : String
     , subpart : String
+    , name : String
+    , age : String
     }
 
 model : Model
@@ -39,12 +41,14 @@ model =   {
     , selectedTab = 0
     , part = "----"
     , subpart = "----"
+    , name = ""
+    , age = ""
     }
        
     
 init : ( Model, Cmd Msg )
 init =
-    ( Model Material.model [] [] [] [] [] [] [] "" "" "" 0 "" ""
+    ( Model Material.model [] [] [] [] [] [] [] "" "" "" 0 "" "" "" ""
     , Cmd.none
     )
     
@@ -113,6 +117,7 @@ type Msg
     | SelectSymptom Int String
     | ComputeDiagnosis
     | Diagnosis (Result Http.Error (List General))
-    | SelectTab Int  
-    | Seleccionar String Int
-    | Mdl (Material.Msg Msg)  
+    | Seleccionar Int
+    | Mdl (Material.Msg Msg)
+    | ChangeName String
+    | ChangeAge String
