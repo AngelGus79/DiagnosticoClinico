@@ -83,11 +83,13 @@ viewBody model =
 viewData : Model -> Html Msg
 viewData model = div [] 
           [Lists.ul []
-            [ Lists.li []
+            [ h3 [] [text "Ingresa tus datos"]
+            , Lists.li []
               [Lists.content []
                 [ (Textfield.render Mdl [0] model.mdl
                   [ Textfield.label "Escribe tu nombre"
                   , Textfield.floatingLabel
+                  , Textfield.value model.name
                   , Options.onInput ChangeName 
                   ] []
                   )
@@ -99,6 +101,7 @@ viewData model = div []
                 [ (Textfield.render Mdl [1] model.mdl
                   [ Textfield.label "Año de nacimiento"
                   , Textfield.floatingLabel
+                  , Textfield.value model.age
                   , Options.onInput ChangeAge
                   , Textfield.error ("No es un numero")
                       |> Options.when (not <| match model.age (Regex.regex "[0-9]*"))
@@ -157,21 +160,21 @@ viewBodyLocations : Model -> Html Msg
 viewBodyLocations model =
     div
         [ style [ ( "padding", "2rem" ) ] ]
-        (button model.bodyLocations 1)
+        ((h3 [] [text "¿Que parte del cuerpo le duele?"])::(button model.bodyLocations 1))
 
 
 viewBodySubLocations : Model -> Html Msg
 viewBodySubLocations model =
     div
         [ style [ ( "padding", "2rem" ) ] ]
-        (button model.bodySubLocations 2)
+        ((h3 [] [text "¿Que subparte del cuerpo le duele?"])::(button model.bodySubLocations 2))
 
 
 viewSymptoms : Model -> Html Msg
 viewSymptoms model =
     div
         [ style [ ( "padding", "2rem" ) ] ]
-        (List.append (button model.symptoms 3)  botonEnviar)
+        ((h3 [] [text "¿Que síntomas presenta?"])::(List.append (button model.symptoms 3)  botonEnviar))
 
 botonEnviar : List (Html Msg)
 botonEnviar = [Button.render Mdl
