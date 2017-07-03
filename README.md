@@ -8,11 +8,11 @@ Los paquetes utilizados en "Diagnóstico clínico" son los siguientes:
 
 | Usuario | Paquete | Version |
 | ------ | ------ | -
-| NoRedInk | [elm-decode-pipeline] [nri Pipeline] | 3.0.0|
-| debois | [elm-mdl] [debois mdl] | 8.1.0|
-| elm-lang | [core] [elm core] | 5.1.1|
-| elm-lang | [html] [elm html] | 2.0.0|
-| elm-lang | [http] [elm http] | 1.0.0|
+| NoRedInk | [elm-decode-pipeline][nri Pipeline] | 3.0.0|
+| debois | [elm-mdl][debois mdl] | 8.1.0|
+| elm-lang | [core][elm core] | 5.1.1|
+| elm-lang | [html][elm html] | 2.0.0|
+| elm-lang | [http][elm http] | 1.0.0|
 
 Para instalar y hacer uso de esta aplicación siga los siguientes pasos:
 
