@@ -160,21 +160,21 @@ viewBodyLocations : Model -> Html Msg
 viewBodyLocations model =
     div
         [ style [ ( "padding", "2rem" ) ] ]
-        ((h3 [] [text "¿Que parte del cuerpo le duele?"])::(button model.bodyLocations 1))
+        ((h5 [] [text "¿En qué parte del cuerpo presentas los síntomas?"])::(button model.bodyLocations 1))
 
 
 viewBodySubLocations : Model -> Html Msg
 viewBodySubLocations model =
     div
         [ style [ ( "padding", "2rem" ) ] ]
-        ((h3 [] [text "¿Que subparte del cuerpo le duele?"])::(button model.bodySubLocations 2))
+        ((h5 [] [text "Dime mas específicamente cúal parte"])::(button model.bodySubLocations 2))
 
 
 viewSymptoms : Model -> Html Msg
 viewSymptoms model =
     div
         [ style [ ( "padding", "2rem" ) ] ]
-        ((h3 [] [text "¿Que síntomas presenta?"])::(List.append (button model.symptoms 3)  botonEnviar))
+        ((h5 [] [text "¿Que síntomas presentas?"])::(List.append (button model.symptoms 3)  botonEnviar))
 
 botonEnviar : List (Html Msg)
 botonEnviar = [Button.render Mdl

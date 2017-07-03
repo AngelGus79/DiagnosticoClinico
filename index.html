@@ -16793,10 +16793,21 @@ var _user$project$View$viewSymptoms = function (model) {
 				}),
 			_1: {ctor: '[]'}
 		},
-		A2(
-			_elm_lang$core$List$append,
-			A2(_user$project$View$button, model.symptoms, 3),
-			_user$project$View$botonEnviar));
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$h5,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('¿Que síntomas presentas?'),
+					_1: {ctor: '[]'}
+				}),
+			_1: A2(
+				_elm_lang$core$List$append,
+				A2(_user$project$View$button, model.symptoms, 3),
+				_user$project$View$botonEnviar)
+		});
 };
 var _user$project$View$viewBodySubLocations = function (model) {
 	return A2(
@@ -16811,7 +16822,18 @@ var _user$project$View$viewBodySubLocations = function (model) {
 				}),
 			_1: {ctor: '[]'}
 		},
-		A2(_user$project$View$button, model.bodySubLocations, 2));
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$h5,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('Dime mas específicamente cúal parte'),
+					_1: {ctor: '[]'}
+				}),
+			_1: A2(_user$project$View$button, model.bodySubLocations, 2)
+		});
 };
 var _user$project$View$viewBodyLocations = function (model) {
 	return A2(
@@ -16826,7 +16848,18 @@ var _user$project$View$viewBodyLocations = function (model) {
 				}),
 			_1: {ctor: '[]'}
 		},
-		A2(_user$project$View$button, model.bodyLocations, 1));
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$h5,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('¿En qué parte del cuerpo presentas los síntomas?'),
+					_1: {ctor: '[]'}
+				}),
+			_1: A2(_user$project$View$button, model.bodyLocations, 1)
+		});
 };
 var _user$project$View$match = F2(
 	function (str, rx) {
@@ -16860,43 +16893,58 @@ var _user$project$View$viewData = function (model) {
 				{
 					ctor: '::',
 					_0: A2(
-						_debois$elm_mdl$Material_List$li,
+						_elm_lang$html$Html$h3,
 						{ctor: '[]'},
 						{
 							ctor: '::',
-							_0: A2(
-								_debois$elm_mdl$Material_List$content,
-								{ctor: '[]'},
-								{
-									ctor: '::',
-									_0: A5(
-										_debois$elm_mdl$Material_Textfield$render,
-										_user$project$Model$Mdl,
-										{
-											ctor: '::',
-											_0: 0,
-											_1: {ctor: '[]'}
-										},
-										model.mdl,
-										{
-											ctor: '::',
-											_0: _debois$elm_mdl$Material_Textfield$label('Escribe tu nombre'),
-											_1: {
-												ctor: '::',
-												_0: _debois$elm_mdl$Material_Textfield$floatingLabel,
-												_1: {
-													ctor: '::',
-													_0: _debois$elm_mdl$Material_Options$onInput(_user$project$Model$ChangeName),
-													_1: {ctor: '[]'}
-												}
-											}
-										},
-										{ctor: '[]'}),
-									_1: {ctor: '[]'}
-								}),
+							_0: _elm_lang$html$Html$text('Ingresa tus datos'),
 							_1: {ctor: '[]'}
 						}),
-					_1: {ctor: '[]'}
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_debois$elm_mdl$Material_List$li,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: A2(
+									_debois$elm_mdl$Material_List$content,
+									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: A5(
+											_debois$elm_mdl$Material_Textfield$render,
+											_user$project$Model$Mdl,
+											{
+												ctor: '::',
+												_0: 0,
+												_1: {ctor: '[]'}
+											},
+											model.mdl,
+											{
+												ctor: '::',
+												_0: _debois$elm_mdl$Material_Textfield$label('Escribe tu nombre'),
+												_1: {
+													ctor: '::',
+													_0: _debois$elm_mdl$Material_Textfield$floatingLabel,
+													_1: {
+														ctor: '::',
+														_0: _debois$elm_mdl$Material_Textfield$value(model.name),
+														_1: {
+															ctor: '::',
+															_0: _debois$elm_mdl$Material_Options$onInput(_user$project$Model$ChangeName),
+															_1: {ctor: '[]'}
+														}
+													}
+												}
+											},
+											{ctor: '[]'}),
+										_1: {ctor: '[]'}
+									}),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}
 				}),
 			_1: {
 				ctor: '::',
@@ -16927,17 +16975,21 @@ var _user$project$View$viewData = function (model) {
 											_0: _debois$elm_mdl$Material_Textfield$floatingLabel,
 											_1: {
 												ctor: '::',
-												_0: _debois$elm_mdl$Material_Options$onInput(_user$project$Model$ChangeAge),
+												_0: _debois$elm_mdl$Material_Textfield$value(model.age),
 												_1: {
 													ctor: '::',
-													_0: A2(
-														_debois$elm_mdl$Material_Options$when,
-														!A2(
-															_user$project$View$match,
-															model.age,
-															_elm_lang$core$Regex$regex('[0-9]*')),
-														_debois$elm_mdl$Material_Textfield$error('No es un numero')),
-													_1: {ctor: '[]'}
+													_0: _debois$elm_mdl$Material_Options$onInput(_user$project$Model$ChangeAge),
+													_1: {
+														ctor: '::',
+														_0: A2(
+															_debois$elm_mdl$Material_Options$when,
+															!A2(
+																_user$project$View$match,
+																model.age,
+																_elm_lang$core$Regex$regex('[0-9]*')),
+															_debois$elm_mdl$Material_Textfield$error('No es un numero')),
+														_1: {ctor: '[]'}
+													}
 												}
 											}
 										}
@@ -17610,7 +17662,7 @@ var _user$project$Main$update = F2(
 				var sSymptoms = _elm_lang$core$Basics$toString(model.selectedSymptoms);
 				var path = A2(
 					_elm_lang$core$Basics_ops['++'],
-					'diagnosis?symptoms=',
+					A2(_elm_lang$core$Debug$log, 'Url: ', 'diagnosis?symptoms='),
 					A2(
 						_elm_lang$core$Basics_ops['++'],
 						sSymptoms,
@@ -17620,10 +17672,7 @@ var _user$project$Main$update = F2(
 							A2(
 								_elm_lang$core$Basics_ops['++'],
 								model.gender,
-								A2(
-									_elm_lang$core$Basics_ops['++'],
-									'&year_of_birth=',
-									_elm_lang$core$Basics$toString(model.age))))));
+								A2(_elm_lang$core$Basics_ops['++'], '&year_of_birth=', model.age)))));
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(

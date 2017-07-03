@@ -164,7 +164,7 @@ update msg model =
                     toString model.selectedSymptoms
 
                 path =
-                    "diagnosis?symptoms=" ++ sSymptoms ++ "&gender=" ++ model.gender ++ "&year_of_birth=" ++ (toString model.age)
+                  Debug.log "Url: "  "diagnosis?symptoms=" ++ sSymptoms ++ "&gender=" ++ model.gender ++ "&year_of_birth=" ++  model.age
             in
             ( {model| selectedTab = 4}, Http.send Diagnosis (getDiagnosisData (creaUrl model path)) )
 

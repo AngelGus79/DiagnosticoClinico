@@ -320,7 +320,7 @@ var _user$project$Main$update = F2(
 				var sSymptoms = _elm_lang$core$Basics$toString(model.selectedSymptoms);
 				var path = A2(
 					_elm_lang$core$Basics_ops['++'],
-					'diagnosis?symptoms=',
+					A2(_elm_lang$core$Debug$log, 'Url: ', 'diagnosis?symptoms='),
 					A2(
 						_elm_lang$core$Basics_ops['++'],
 						sSymptoms,
@@ -330,10 +330,7 @@ var _user$project$Main$update = F2(
 							A2(
 								_elm_lang$core$Basics_ops['++'],
 								model.gender,
-								A2(
-									_elm_lang$core$Basics_ops['++'],
-									'&year_of_birth=',
-									_elm_lang$core$Basics$toString(model.age))))));
+								A2(_elm_lang$core$Basics_ops['++'], '&year_of_birth=', model.age)))));
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
