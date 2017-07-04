@@ -26,12 +26,8 @@ $ git clone https://github.com/AngelGus79/DiagnosticoClinico
 $ cd DiagnosticoClinico
 $ elm-package install
 ```
-4. Iniciar elm reactor.
-```sh
-$ elm reactor
-``` 
-5. Se necesita crear una cuenta en la página de [apimedic.com][api medic] 
-6. En el archivo auth.elm poner los siguientes datos.
+4. Se necesita crear una cuenta en la página de [apimedic.com][api medic] 
+5. En el archivo auth.elm poner los siguientes datos.
 > * El correo registrado en la cuenta de [apimedic.com][api medic] como en el ejemplo:
 
 ```
@@ -47,8 +43,10 @@ password : String
 password =
     "TOKEN_HMAC"
 ```
-7. Por último iniciar la aplicación en tu [navegador][app init].
-
+6. Por último ejecutar la aplicacion: 
+```sh
+$ elm-live Update.elm --open
+```
    [elm installer]: <http://elm-lang.org:1234/install>
    [nri Pipeline]: <https://github.com/NoRedInk/elm-decode-pipeline>
    [debois mdl]: <https://github.com/debois/elm-mdl>
