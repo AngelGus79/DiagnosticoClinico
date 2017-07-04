@@ -1,0 +1,12 @@
+{
+    "elm-community/lazy-list": "1.0.0",
+    "elm-community/elm-test": "4.1.1",
+    "elm-community/shrink": "2.0.0",
+    "elm-lang/virtual-dom": "2.0.4",
+    "mgold/elm-random-pcg": "5.0.0",
+    "elm-lang/lazy": "2.0.0",
+    "elm-lang/html": "2.0.0",
+    "elm-lang/http": "1.0.0",
+    "elm-community/html-test-runner": "1.0.3",
+    "elm-lang/core": "5.1.1"
+}

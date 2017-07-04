@@ -1,0 +1,28 @@
+var _rtfeldman$elm_workshop$Tests$all = A2(
+	_elm_community$elm_test$Test$describe,
+	'request',
+	{
+		ctor: '::',
+		_0: A2(
+			_elm_community$elm_test$Test$test,
+			'realizar una peticion al servidor',
+			function (_p0) {
+				var _p1 = _p0;
+				var isErrorResult = function (result) {
+					var _p2 = result;
+					if (_p2.ctor === 'Err') {
+						return true;
+					} else {
+						return false;
+					}
+				};
+				var tokenDecoder = A2(_elm_lang$core$Json_Decode$field, 'Token', _elm_lang$core$Json_Decode$string);
+				var json = '{\'ValidThrough\': 7200, \'Token\': \'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFndXN0YXZvNzlAZ21haWw}';
+				return A2(
+					_elm_community$elm_test$Expect$true,
+					'Expected decoding an invalid response to return an Err.',
+					isErrorResult(
+						A2(_elm_lang$core$Json_Decode$decodeString, tokenDecoder, json)));
+			}),
+		_1: {ctor: '[]'}
+	});

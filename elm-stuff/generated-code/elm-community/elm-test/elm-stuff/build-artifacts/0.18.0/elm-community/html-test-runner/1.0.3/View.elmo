@@ -1,0 +1,508 @@
+var _elm_community$html_test_runner$View$palette = {green: 'darkgreen', red: 'hsla(3, 100%, 40%, 1.0)', yellow: 'goldenrod', gray: 'darkgray'};
+var _elm_community$html_test_runner$View$formatDuration = function (time) {
+	return A2(
+		_elm_lang$core$Basics_ops['++'],
+		_elm_lang$core$Basics$toString(time),
+		' ms');
+};
+var _elm_community$html_test_runner$View$resultsStyle = _elm_lang$html$Html_Attributes$style(
+	{
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 'font-size', _1: '14px'},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'line-height', _1: '1.3'},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'font-family', _1: 'Menlo, Consolas, \"Fira Mono\", \"DejaVu Sans Mono\", \"Liberation Monospace\", \"Liberation Mono\", Monaco, \"Lucida Console\", \"Courier New\", monospace'},
+				_1: {ctor: '[]'}
+			}
+		}
+	});
+var _elm_community$html_test_runner$View$withColorChar = F3(
+	function ($char, textColor, str) {
+		return A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$style(
+					{
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'color', _1: textColor},
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(
+					A2(
+						_elm_lang$core$String$cons,
+						$char,
+						A2(
+							_elm_lang$core$String$cons,
+							_elm_lang$core$Native_Utils.chr(' '),
+							str))),
+				_1: {ctor: '[]'}
+			});
+	});
+var _elm_community$html_test_runner$View$messageAttributes = {
+	ctor: '::',
+	_0: _elm_lang$html$Html_Attributes$width(80),
+	_1: {
+		ctor: '::',
+		_0: _elm_lang$html$Html_Attributes$style(
+			{
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'margin-left', _1: '32px'},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'margin-bottom', _1: '40px'},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'font-size', _1: 'inherit'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'font-family', _1: 'inherit'},
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			}),
+		_1: {ctor: '[]'}
+	}
+};
+var _elm_community$html_test_runner$View$givenAttributes = {
+	ctor: '::',
+	_0: _elm_lang$html$Html_Attributes$width(80),
+	_1: {
+		ctor: '::',
+		_0: _elm_lang$html$Html_Attributes$style(
+			{
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'margin-bottom', _1: '24px'},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'color', _1: _elm_community$html_test_runner$View$palette.gray},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'font-size', _1: 'inherit'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'font-family', _1: 'inherit'},
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			}),
+		_1: {ctor: '[]'}
+	}
+};
+var _elm_community$html_test_runner$View$viewLabels = A2(
+	_elm_community$elm_test$Test_Runner$formatLabels,
+	A2(
+		_elm_community$html_test_runner$View$withColorChar,
+		_elm_lang$core$Native_Utils.chr('↓'),
+		_elm_community$html_test_runner$View$palette.gray),
+	A2(
+		_elm_community$html_test_runner$View$withColorChar,
+		_elm_lang$core$Native_Utils.chr('✗'),
+		_elm_community$html_test_runner$View$palette.red));
+var _elm_community$html_test_runner$View$viewFailure = function (_p0) {
+	var _p1 = _p0;
+	var inContext = function (_p2) {
+		var _p3 = _p2;
+		return A2(
+			_elm_lang$html$Html$div,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: function () {
+					var _p4 = _p3.given;
+					if (_p4.ctor === 'Nothing') {
+						return _elm_lang$html$Html$text('');
+					} else {
+						return A2(
+							_elm_lang$html$Html$pre,
+							_elm_community$html_test_runner$View$givenAttributes,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text(
+									A2(_elm_lang$core$Basics_ops['++'], 'Given ', _p4._0)),
+								_1: {ctor: '[]'}
+							});
+					}
+				}(),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$pre,
+						_elm_community$html_test_runner$View$messageAttributes,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(_p3.message),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}
+			});
+	};
+	return A2(
+		_elm_lang$html$Html$li,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$style(
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'margin', _1: '40px 0'},
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		},
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			_elm_community$html_test_runner$View$viewLabels(_p1._0),
+			A2(_elm_lang$core$List$map, inContext, _p1._1)));
+};
+var _elm_community$html_test_runner$View$summarize = F2(
+	function (failures, content) {
+		return A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$style(
+					{
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'width', _1: '960px'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'margin', _1: 'auto 40px'},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'font-family', _1: 'verdana, sans-serif'},
+								_1: {ctor: '[]'}
+							}
+						}
+					}),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: content,
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$ol,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('results'),
+							_1: {
+								ctor: '::',
+								_0: _elm_community$html_test_runner$View$resultsStyle,
+								_1: {ctor: '[]'}
+							}
+						},
+						A2(_elm_lang$core$List$map, _elm_community$html_test_runner$View$viewFailure, failures)),
+					_1: {ctor: '[]'}
+				}
+			});
+	});
+var _elm_community$html_test_runner$View$finished = F4(
+	function (duration, passed, failures, _p5) {
+		var _p6 = _p5;
+		var thStyle = {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'text-align', _1: 'left'},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'padding-right', _1: '10px'},
+				_1: {ctor: '[]'}
+			}
+		};
+		return A2(
+			_elm_lang$html$Html$div,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$h2,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$style(
+							{
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'color', _1: _p6._0},
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(_p6._1),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$table,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$tbody,
+								{ctor: '[]'},
+								{
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$tr,
+										{ctor: '[]'},
+										{
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$th,
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html_Attributes$style(thStyle),
+													_1: {ctor: '[]'}
+												},
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html$text('Duration'),
+													_1: {ctor: '[]'}
+												}),
+											_1: {
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$td,
+													{ctor: '[]'},
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html$text(
+															_elm_community$html_test_runner$View$formatDuration(duration)),
+														_1: {ctor: '[]'}
+													}),
+												_1: {ctor: '[]'}
+											}
+										}),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$tr,
+											{ctor: '[]'},
+											{
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$th,
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$style(thStyle),
+														_1: {ctor: '[]'}
+													},
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html$text('Passed'),
+														_1: {ctor: '[]'}
+													}),
+												_1: {
+													ctor: '::',
+													_0: A2(
+														_elm_lang$html$Html$td,
+														{ctor: '[]'},
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html$text(
+																_elm_lang$core$Basics$toString(passed)),
+															_1: {ctor: '[]'}
+														}),
+													_1: {ctor: '[]'}
+												}
+											}),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$tr,
+												{ctor: '[]'},
+												{
+													ctor: '::',
+													_0: A2(
+														_elm_lang$html$Html$th,
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html_Attributes$style(thStyle),
+															_1: {ctor: '[]'}
+														},
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html$text('Failed'),
+															_1: {ctor: '[]'}
+														}),
+													_1: {
+														ctor: '::',
+														_0: A2(
+															_elm_lang$html$Html$td,
+															{ctor: '[]'},
+															{
+																ctor: '::',
+																_0: _elm_lang$html$Html$text(
+																	_elm_lang$core$Basics$toString(
+																		_elm_lang$core$List$length(failures))),
+																_1: {ctor: '[]'}
+															}),
+														_1: {ctor: '[]'}
+													}
+												}),
+											_1: {ctor: '[]'}
+										}
+									}
+								}),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}
+			});
+	});
+var _elm_community$html_test_runner$View$running = F2(
+	function (completed, remaining) {
+		return A2(
+			_elm_lang$html$Html$div,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$h2,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('Running Tests...'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									_elm_lang$core$Basics$toString(completed),
+									' completed')),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$div,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text(
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										_elm_lang$core$Basics$toString(remaining),
+										' remaining')),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}
+				}
+			});
+	});
+var _elm_community$html_test_runner$View$view = function (model) {
+	var _p7 = model;
+	if (_p7.ctor === 'Nothing') {
+		return A2(
+			_elm_community$html_test_runner$View$summarize,
+			{ctor: '[]'},
+			A2(
+				_elm_lang$html$Html$h2,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('Loading Tests...'),
+					_1: {ctor: '[]'}
+				}));
+	} else {
+		switch (_p7._0._1.ctor) {
+			case 'Pass':
+				return A2(
+					_elm_community$html_test_runner$View$summarize,
+					{ctor: '[]'},
+					A4(
+						_elm_community$html_test_runner$View$finished,
+						_p7._0._0,
+						_p7._0._1._0,
+						{ctor: '[]'},
+						{ctor: '_Tuple2', _0: _elm_community$html_test_runner$View$palette.green, _1: 'Test Run Passed'}));
+			case 'Todo':
+				var _p8 = _p7._0._1._1;
+				return A2(
+					_elm_community$html_test_runner$View$summarize,
+					_p8,
+					A4(
+						_elm_community$html_test_runner$View$finished,
+						_p7._0._0,
+						_p7._0._1._0,
+						_p8,
+						{ctor: '_Tuple2', _0: _elm_community$html_test_runner$View$palette.yellow, _1: 'Test Run Incomplete: TODO\'s remaining'}));
+			case 'AutoFail':
+				switch (_p7._0._1._1.ctor) {
+					case 'Only':
+						return A2(
+							_elm_community$html_test_runner$View$summarize,
+							{ctor: '[]'},
+							A4(
+								_elm_community$html_test_runner$View$finished,
+								_p7._0._0,
+								_p7._0._1._0,
+								{ctor: '[]'},
+								{ctor: '_Tuple2', _0: _elm_community$html_test_runner$View$palette.yellow, _1: 'Test Run Incomplete: Test.only was used'}));
+					case 'Skip':
+						return A2(
+							_elm_community$html_test_runner$View$summarize,
+							{ctor: '[]'},
+							A4(
+								_elm_community$html_test_runner$View$finished,
+								_p7._0._0,
+								_p7._0._1._0,
+								{ctor: '[]'},
+								{ctor: '_Tuple2', _0: _elm_community$html_test_runner$View$palette.yellow, _1: 'Test Run Incomplete: Test.skip was used'}));
+					default:
+						return A2(
+							_elm_community$html_test_runner$View$summarize,
+							{ctor: '[]'},
+							A4(
+								_elm_community$html_test_runner$View$finished,
+								_p7._0._0,
+								_p7._0._1._0,
+								{ctor: '[]'},
+								{
+									ctor: '_Tuple2',
+									_0: _elm_community$html_test_runner$View$palette.yellow,
+									_1: A2(_elm_lang$core$Basics_ops['++'], 'Test Run Incomplete: ', _p7._0._1._1._0)
+								}));
+				}
+			case 'Fail':
+				var _p9 = _p7._0._1._1;
+				return A2(
+					_elm_community$html_test_runner$View$summarize,
+					_p9,
+					A4(
+						_elm_community$html_test_runner$View$finished,
+						_p7._0._0,
+						_p7._0._1._0,
+						_p9,
+						{ctor: '_Tuple2', _0: _elm_community$html_test_runner$View$palette.red, _1: 'Test Run Failed'}));
+			default:
+				var _p10 = _p7._0._1._0.failures;
+				return A2(
+					_elm_community$html_test_runner$View$summarize,
+					_p10,
+					A2(
+						_elm_community$html_test_runner$View$running,
+						_p7._0._1._0.passed + _elm_lang$core$List$length(_p10),
+						_p7._0._1._0.remaining));
+		}
+	}
+};

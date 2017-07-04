@@ -1,5 +1,0 @@
-var _user$project$Auth$language = 'es-es';
-var _user$project$Auth$priaid_healthservice_url = 'https://sandbox-healthservice.priaid.ch';
-var _user$project$Auth$priaid_authservice_url = 'https://sandbox-authservice.priaid.ch/login';
-var _user$project$Auth$password = 'QJW9Tay0llgfdln7982gvA==';
-var _user$project$Auth$username = 'c-remix@hotmail.es';
